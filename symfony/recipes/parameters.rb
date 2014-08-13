@@ -13,11 +13,11 @@ node[:deploy].each do |app_name, deploy|
 
         variables(
             :params => node[:vblogger].merge({
-                :database_driver => "pdo_mysql"
-                :database_host => deploy[:database][:host]
-                :database_port: deploy[:database][:port]
-                :database_name: deploy[:database][:dbname]
-                :database_user: deploy[:database][:username]
+                :database_driver => "pdo_mysql",
+                :database_host => deploy[:database][:host],
+                :database_port: deploy[:database][:port],
+                :database_name: deploy[:database][:dbname],
+                :database_user: deploy[:database][:username],
                 :database_password: deploy[:database][:password]
             }).to_json
         )
