@@ -2,9 +2,9 @@ node[:deploy].each do |app_name, deploy|
   execute "cache" do
       group deploy[:group]
       if platform?("ubuntu")
-          owner "www-data"
+          user "www-data"
       elsif platform?("amazon")
-          owner "apache"
+          user "apache"
       end
 
       cwd "#{deploy[:deploy_to]}/current"
