@@ -1,3 +1,3 @@
 source 'https://api.berkshelf.com'
 
-cookbook 'composer'
+cookbook 'composer', git: 'https://github.com/mcfedr/composer.git'
