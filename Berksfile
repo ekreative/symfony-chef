@@ -1,3 +1,3 @@
 source 'https://api.berkshelf.com'
 
-cookbook 'composer', git: 'https://github.com/mcfedr/composer.git', :branch 'patch-1'
+cookbook 'composer', git: 'https://github.com/mcfedr/composer.git', branch: 'patch-1'
