@@ -1,4 +1,7 @@
 node[:deploy].each do |app_name, deploy|
+    directory "#{deploy[:deploy_to]}/current/var/logs" do
+        action :delete
+    end
     link "#{deploy[:deploy_to]}/current/var/logs" do
         group deploy[:group]
         if platform?("ubuntu")
