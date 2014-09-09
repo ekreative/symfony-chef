@@ -1,5 +1,5 @@
 node[:deploy].each do |app_name, deploy|
-    link "#{deploy[:deploy_to]}/current/app/logs" do
+    link "#{deploy[:deploy_to]}/current/var/logs" do
         group deploy[:group]
         if platform?("ubuntu")
             owner "www-data"

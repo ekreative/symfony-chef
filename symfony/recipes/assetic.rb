@@ -2,7 +2,7 @@ node[:deploy].each do |app_name, deploy|
   directory "#{deploy[:deploy_to]}/current/var/cache" do
       action :delete
   end
-  execute "cache" do
+  execute "assetic" do
       group deploy[:group]
       if platform?("ubuntu")
           user "www-data"
@@ -11,6 +11,6 @@ node[:deploy].each do |app_name, deploy|
       end
 
       cwd "#{deploy[:deploy_to]}/current"
-      command "#{deploy[:deploy_to]}/current/bin/console cache:clear --env=prod"
+      command "#{deploy[:deploy_to]}/current/bin/console assetic:dump --env=prod"
   end
 end
