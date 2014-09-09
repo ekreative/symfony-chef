@@ -1,6 +1,7 @@
 node[:deploy].each do |app_name, deploy|
   directory "#{deploy[:deploy_to]}/current/var/cache" do
       action :delete
+      recursive true
   end
   execute "cache" do
       group deploy[:group]
