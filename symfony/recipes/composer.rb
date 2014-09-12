@@ -1,4 +1,5 @@
 node[:deploy].each do |app_name, deploy|
+
     composer_project "#{deploy[:deploy_to]}/current" do
         group deploy[:group]
         if platform?("ubuntu")

@@ -1,4 +1,4 @@
-['php5-intl', 'php5-imagick', 'php5-intl', 'nodejs', 'npm', 'nodejs-legacy', 'php5-redis'].each do |package_name|
+['php5-intl', 'php5-imagick', 'nodejs', 'npm', 'nodejs-legacy', 'php5-redis', 'php5-apcu'].each do |package_name|
     package package_name do
       action :install
     end
