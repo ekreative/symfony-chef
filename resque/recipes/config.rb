@@ -16,7 +16,7 @@ node[:deploy].each do |app_name, deploy|
             :command => "#{deploy[:deploy_to]}/current/bin/resque",
             :number => 2,
             :user => user,
-            :queue => default
+            :queue => "default"
         )
     end
     template "/etc/supervisor/conf.d/#{app_name}-scheduler.conf" do
