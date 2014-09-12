@@ -10,4 +10,4 @@
 
 ## Deploy Commands
 
-    symfony::log symfony::parameters symfony::permissions symfony::legacylinks node::npm node::bower symfony::composer symfony::cache symfony::assetic resque::config resque::restart
+    symfony::logs symfony::parameters symfony::permissions symfony::legacylinks node::npm node::bower symfony::composer symfony::cache symfony::assetic resque::config resque::restart
