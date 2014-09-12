@@ -1,8 +1,4 @@
 node[:deploy].each do |app_name, deploy|
-  directory "/root/.npm" do
-      action :delete
-      recursive true
-  end
   execute "npm" do
       group deploy[:group]
       if platform?("ubuntu")
