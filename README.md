@@ -2,7 +2,7 @@
 
 ## Setup Commands
 
-    composer symfony::setup resque::setup
+    composer symfony::setup resque::setup php::ini
 
 ## Configure Commands
 
