@@ -16,7 +16,8 @@ node[:deploy].each do |app_name, deploy|
             :command => "#{deploy[:deploy_to]}/current/bin/resque",
             :number => 2,
             :user => user,
-            :queue => "default"
+            :queue => node[app_name][:parameters][:resque_default_queue],
+            :backend => "#{node[app_name][:parameters][:redis_host]}:#{node[app_name][:parameters][:redis_port]}"
         )
     end
     template "/etc/supervisor/conf.d/#{app_name}-scheduler.conf" do
@@ -35,7 +36,8 @@ node[:deploy].each do |app_name, deploy|
             :name => "#{app_name}-scheduler",
             :command => "#{deploy[:deploy_to]}/current/bin/resque-scheduler",
             :number => 1,
-            :user => user
+            :user => user,
+            :backend => "#{node[app_name][:parameters][:redis_host]}:#{node[app_name][:parameters][:redis_port]}"
         )
     end
 end

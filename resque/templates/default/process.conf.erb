@@ -9,4 +9,4 @@ stdout_logfile=/var/log/supervisor/<%= @name %>-%(process_num)s.stdout.log
 stdout_logfile_backups=3
 stderr_logfile=/var/log/supervisor/<%= @name %>-%(process_num)s.stderr.log
 stderr_logfile_backups=3
-environment=<% if defined?(queue) %>QUEUE="<%= @queue %>", <% end %>VVERBOSE="1"
+environment=<% if defined?(queue) %>QUEUE="<%= @queue %>", <% end %><% if defined?(backend) %>REDIS_BACKEND="<%= @backend %>", <% end %>VVERBOSE="1"
