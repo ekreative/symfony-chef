@@ -20,7 +20,7 @@ node[:deploy].each do |app_name, deploy|
                     :database_name => deploy[:database][:database],
                     :database_user => deploy[:database][:username],
                     :database_password => deploy[:database][:password],
-                    :nodejs => `which node`
+                    :nodejs => `/usr/bin/node`
                 }.merge(node[app_name][:parameters])
             }.to_json
         )
