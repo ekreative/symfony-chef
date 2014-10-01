@@ -1,6 +1,6 @@
-execute "stop" do
-  command "service supervisor stop"
+service "supervisor" do
+  action :stop
 end
-execute "start" do
-  command "service supervisor start"
+service "supervisor" do
+  action :start
 end
