@@ -11,14 +11,6 @@ node[:deploy].each do |app_name, deploy|
           owner "apache"
         end
 
-        variables(
-            :params => {
-                :parameters => {
-                    :nodejs => "/usr/bin/node"
-                }.merge(node[app_name][:parameters])
-            }.to_json
-        )
-
         only_if do
              File.directory?("#{deploy[:deploy_to]}/current/app/config")
         end
