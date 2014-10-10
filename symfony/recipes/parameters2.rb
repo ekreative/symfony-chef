@@ -11,6 +11,12 @@ node[:deploy].each do |app_name, deploy|
           owner "apache"
         end
 
+        variables(
+            :params => {
+                
+            }.to_json
+        )
+
         only_if do
              File.directory?("#{deploy[:deploy_to]}/current/app/config")
         end
