@@ -22,13 +22,13 @@
     
 ### Configure Commands
 
-	php::configure symfony::parametersnodb symfony::cache symfony::assetic resque::config
+	php::configure symfony::parametersnodb symfony::cache symfony::assetic resque::config resque::stop
 
 	supervisor to run only manually!
     
 ### Deploy Commands
 
-	deploy::php symfony::logs symfony::parametersnodb symfony::permissions symfony::legacylinks node::npm node::bower symfony::composer symfony::cache symfony::assetic resque::config
+	deploy::php symfony::logs symfony::parametersnodb symfony::permissions symfony::legacylinks node::npm node::bower symfony::composer symfony::cache symfony::assetic resque::config resque::stop
 
 	supervisor to run only manually!
 
