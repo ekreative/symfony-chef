@@ -24,13 +24,13 @@
 
 	php::configure symfony::parametersnodb symfony::cache symfony::assetic resque::config resque::stop
 
-	supervisor to run only manually!
+	run supervisor ONLY manually!
     
 ### Deploy Commands
 
 	deploy::php symfony::logs symfony::parametersnodb symfony::permissions symfony::legacylinks node::npm node::bower symfony::composer symfony::cache symfony::assetic resque::config resque::stop
 
-	supervisor to run only manually!
+	run supervisor ONLY manually!
 
 ### Undeploy Commands
 
