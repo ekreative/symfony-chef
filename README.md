@@ -27,3 +27,11 @@
 ### Deploy Commands
 
 	deploy::php symfony::logs symfony::parametersnodb symfony::permissions symfony::legacylinks node::npm node::bower symfony::composer symfony::cache symfony::assetic resque::stop resque::config resque::start
+
+### Undeploy Commands
+
+	deploy::php-undeploy
+
+### Shutdown Commands
+	
+	apache2::stop
