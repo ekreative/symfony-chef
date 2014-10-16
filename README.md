@@ -1,13 +1,29 @@
 # Opsworks commands for goville
 
-## Setup Commands
+## PHP App Server:
 
-    go-composer symfony::setup resque::setup php::ini
+### Setup Commands
 
-## Configure Commands
+    go-composer symfony::setup php::ini
 
-    symfony::parameters symfony::cache symfony::assetic resque::config resque::restart
+### Configure Commands
 
-## Deploy Commands
+	symfony::parametersnodb symfony::cache symfony::assetic
+    
+### Deploy Commands
 
-    symfony::logs symfony::parameters symfony::permissions symfony::legacylinks node::npm node::bower symfony::composer symfony::cache symfony::assetic resque::config resque::restart
+	symfony::logs symfony::parametersnodb symfony::permissions symfony::legacylinks node::npm node::bower symfony::composer symfony::cache symfony::assetic
+
+## Resque Worker:
+
+### Setup Commands
+
+	mod_php5_apache2 go-composer symfony::setup resque::setup php::ini
+    
+### Configure Commands
+
+	php::configure symfony::parametersnodb symfony::cache symfony::assetic resque::stop resque::config resque::start
+    
+### Deploy Commands
+
+	deploy::php symfony::logs symfony::parametersnodb symfony::permissions symfony::legacylinks node::npm node::bower symfony::composer symfony::cache symfony::assetic resque::stop resque::config resque::start
