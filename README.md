@@ -4,11 +4,11 @@
 
 ### Setup Commands
 
-    go-composer symfony::setup php::ini
+    go-composer symfony::setup
 
 ### Configure Commands
 
-	symfony::parametersnodb symfony::cache symfony::assetic
+	php::ini symfony::parametersnodb symfony::cache symfony::assetic
     
 ### Deploy Commands
 
@@ -18,11 +18,11 @@
 
 ### Setup Commands
 
-	mod_php5_apache2 go-composer symfony::setup resque::setup php::ini
+	mod_php5_apache2 go-composer symfony::setup resque::setup
     
 ### Configure Commands
 
-	php::configure symfony::parametersnodb symfony::cache symfony::assetic resque::config resque::stop
+	php::configure php::ini symfony::parametersnodb symfony::cache symfony::assetic resque::config resque::stop
 
 	run supervisor ONLY manually!
     
