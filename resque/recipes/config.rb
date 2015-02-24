@@ -16,7 +16,7 @@ node[:deploy].each do |app_name, deploy|
             :command => "#{deploy[:deploy_to]}/current/bin/resque",
             :number => 2,
             :user => user,
-            :queue => node[app_name][:parameters][:resque_default_queue],
+            :queue => node[app_name][:parameters][:redis_queue],
             :backend => "#{node[app_name][:parameters][:redis_host]}:#{node[app_name][:parameters][:redis_port]}"
         )
     end

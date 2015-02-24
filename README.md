@@ -1,36 +1,34 @@
-# Opsworks commands for goville
+# Opsworks commands for Kidslox
 
 ## PHP App Server:
 
 ### Setup Commands
 
-    go-composer symfony::setup
+    go-composer php::setup node::setup
 
 ### Configure Commands
 
-	php::ini symfony::parametersnodb symfony::cache symfony::assetic
+	php::ini symfony::parametersnodb symfony::cache symfony::assetic apache2::restart
     
 ### Deploy Commands
 
-	symfony::logs symfony::parametersnodb symfony::permissions symfony::legacylinks node::npm node::bower symfony::composer symfony::cache symfony::assetic
+	symfony::logs symfony::parametersnodb symfony::permissions node::npm node::bower symfony::composer symfony::cache symfony::assetic apache2::restart
 
-## Resque Worker:
+## Worker:
 
 ### Setup Commands
 
-	mod_php5_apache2 go-composer symfony::setup resque::setup
+	mod_php5_apache2 go-composer php::setup node::setup resque::setup cron::setup
     
 ### Configure Commands
 
-	php::configure php::ini symfony::parametersnodb symfony::cache symfony::assetic resque::config resque::stop
+	php::configure php::ini symfony::parametersnodb symfony::cache symfony::assetic resque::config resque::reload cron::config
 
 	run supervisor ONLY manually!
     
 ### Deploy Commands
 
-	deploy::php symfony::logs symfony::parametersnodb symfony::permissions symfony::legacylinks node::npm node::bower symfony::composer symfony::cache symfony::assetic resque::config resque::stop
-
-	run supervisor ONLY manually!
+	deploy::php symfony::logs symfony::parametersnodb symfony::permissions node::npm node::bower symfony::composer symfony::cache symfony::assetic resque::config resque::reload cron::config
 
 ### Undeploy Commands
 

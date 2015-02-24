@@ -1,5 +1,5 @@
 node[:deploy].each do |app_name, deploy|
-  directory "#{deploy[:deploy_to]}/current/var/cache" do
+  directory "#{deploy[:deploy_to]}/current/app/cache" do
       action :delete
       recursive true
   end
@@ -12,6 +12,6 @@ node[:deploy].each do |app_name, deploy|
       end
 
       cwd "#{deploy[:deploy_to]}/current"
-      command "#{deploy[:deploy_to]}/current/bin/console cache:clear --env=prod"
+      command "#{deploy[:deploy_to]}/current/app/console cache:clear --env=prod"
   end
 end
