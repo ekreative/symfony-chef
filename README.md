@@ -23,8 +23,6 @@
 ### Configure Commands
 
 	php::configure php::ini files::create symfony::parametersnodb symfony::cache symfony::assetic resque::config resque::reload cron::config
-
-	run supervisor ONLY manually!
     
 ### Deploy Commands
 
