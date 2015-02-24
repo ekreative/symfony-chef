@@ -8,6 +8,7 @@ node[:deploy].each do |app_name, deploy|
         end
         dev true
         quiet false
+        prefer_dist true
         action :install
     end
 end
