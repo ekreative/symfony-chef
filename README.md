@@ -8,11 +8,11 @@
 
 ### Configure Commands
 
-	php::ini symfony::parametersnodb symfony::cache symfony::assetic apache2::restart
+	php::ini files::create symfony::parametersnodb symfony::cache symfony::assetic apache2::restart
     
 ### Deploy Commands
 
-	symfony::logs symfony::parametersnodb symfony::permissions node::npm node::bower symfony::composer symfony::cache symfony::assetic apache2::restart
+	symfony::logs files::create symfony::parametersnodb symfony::permissions node::npm node::bower symfony::composer symfony::cache symfony::assetic apache2::restart
 
 ## Worker:
 
@@ -22,13 +22,13 @@
     
 ### Configure Commands
 
-	php::configure php::ini symfony::parametersnodb symfony::cache symfony::assetic resque::config resque::reload cron::config
+	php::configure php::ini files::create symfony::parametersnodb symfony::cache symfony::assetic resque::config resque::reload cron::config
 
 	run supervisor ONLY manually!
     
 ### Deploy Commands
 
-	deploy::php symfony::logs symfony::parametersnodb symfony::permissions node::npm node::bower symfony::composer symfony::cache symfony::assetic resque::config resque::reload cron::config
+	deploy::php symfony::logs files::create symfony::parametersnodb symfony::permissions node::npm node::bower symfony::composer symfony::cache symfony::assetic resque::config resque::reload cron::config
 
 ### Undeploy Commands
 
