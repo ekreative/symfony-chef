@@ -1,0 +1,80 @@
+[general]
+# Path to the AWSLogs agent's state file. Agent uses this file to maintain
+# client side state across its executions.
+state_file = /var/awslogs/state/agent-state
+
+
+## Each log file is defined in its own section. The section name doesn't
+## matter as long as its unique within this file.
+#
+#[kern.log]
+#
+## Path of log file for the agent to monitor and upload.
+#
+#file = /var/log/kern.log
+#
+## Name of the destination log group.
+#
+#log_group_name = kern.log
+#
+## Name of the destination log stream.
+#
+#log_stream_name = {instance_id}
+#
+## Format specifier for timestamp parsing.
+#
+#datetime_format = %b %d %H:%M:%S
+#
+#
+
+<% @node[:deploy].each do |app_name, deploy| %>
+[<%= app_name %>_access]
+file = /var/log/apache/<%= app_name %>-access.log
+datetime_format = [%d/%b/%Y:%H:%M:%S %z]
+log_group_name = <%= node[:opsworks][:stack][:name].gsub(' ','_') %>_<%= app_name %>_apache_access
+log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_apache_access
+
+[<%= app_name %>_ssl_access]
+file = /var/log/apache/<%= app_name %>-ssl-access.log
+datetime_format = [%d/%b/%Y:%H:%M:%S %z]
+log_group_name = <%= node[:opsworks][:stack][:name].gsub(' ','_') %>_<%= app_name %>_apache_ssl_access
+log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_apache_ssl_access
+
+[<%= app_name %>_error]
+file = /var/log/apache/<%= app_name %>-error.log
+datetime_format = [%d/%b/%Y:%H:%M:%S %z]
+log_group_name = <%= node[:opsworks][:stack][:name].gsub(' ','_') %>_<%= app_name %>_apache_error
+log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_apache_error
+
+[<%= app_name %>_prod]
+file = <%= deploy[:deploy_to]%>/shared/log/prod.log
+datetime_format = [%Y-%m-%d %H:%M:%S]
+log_group_name = <%= node[:opsworks][:stack][:name].gsub(' ','_') %>_<%= app_name %>_symfony_prod
+log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_symfony_prod
+
+[<%= app_name %>_dev]
+file = <%= deploy[:deploy_to]%>/shared/log/dev.log
+datetime_format = [%Y-%m-%d %H:%M:%S]
+log_group_name = <%= node[:opsworks][:stack][:name].gsub(' ','_') %>_<%= app_name %>_symfony_dev
+log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_symfony_dev
+
+    <% for i in 0..1 do %>
+[<%= app_name %>_<%= i %>_worker_stderr]
+file = /var/log/supervisor/<%= app_name %>-<%= i %>.stderr.log
+datetime_format = [%H:%M:%S %Y-%m-%d]
+log_group_name = <%= node[:opsworks][:stack][:name].gsub(' ','_') %>_<%= app_name %>_worker_stderr
+log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_worker_<%= i %>_stderr
+
+[<%= app_name %>_<%= i %>_worker_stdout]
+file = /var/log/supervisor/<%= app_name %>-<%= i %>.stdout.log
+datetime_format = [%H:%M:%S %Y-%m-%d]
+log_group_name = <%= node[:opsworks][:stack][:name].gsub(' ','_') %>_<%= app_name %>_worker_stdout
+log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_worker_<%= i %>_stdout
+    <% end %>
+
+[<%= app_name %>_supervisord]
+file = /var/log/supervisor/supervisord.log
+datetime_format = %Y-%m-%d %H:%M:%S
+log_group_name = <%= node[:opsworks][:stack][:name].gsub(' ','_') %>_<%= app_name %>_supervisord
+log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_supervisord
+<% end %>

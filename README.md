@@ -4,7 +4,7 @@
 
 ### Setup Commands
 
-    go-composer php::setup node::setup
+    go-composer php::setup node::setup logs::setup
 
 ### Configure Commands
 
@@ -12,13 +12,13 @@
     
 ### Deploy Commands
 
-	symfony::logs files::create symfony::parametersnodb symfony::permissions node::npm symfony::composer symfony::cache symfony::assetic apache2::restart
+	symfony::logs logs::config logs:restart files::create symfony::parametersnodb symfony::permissions node::npm symfony::composer symfony::cache symfony::assetic apache2::restart
 
 ## Worker:
 
 ### Setup Commands
 
-	mod_php5_apache2 go-composer php::setup node::setup resque::setup cron::setup
+	mod_php5_apache2 go-composer php::setup node::setup resque::setup cron::setup logs::setup
     
 ### Configure Commands
 
@@ -26,7 +26,7 @@
     
 ### Deploy Commands
 
-	deploy::php symfony::logs files::create symfony::parametersnodb symfony::permissions node::npm symfony::composer symfony::cache symfony::assetic resque::config resque::reload cron::config
+	deploy::php symfony::logs logs::config logs:restart files::create symfony::parametersnodb symfony::permissions node::npm symfony::composer symfony::cache symfony::assetic resque::config resque::reload cron::config
 
 ### Undeploy Commands
 
