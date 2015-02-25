@@ -4,7 +4,7 @@
 
 ### Setup Commands
 
-    go-composer php::setup node::setup logs::setup
+    go-composer php::setup node::setup logs::config logs::setup
 
 ### Configure Commands
 
@@ -18,7 +18,7 @@
 
 ### Setup Commands
 
-	mod_php5_apache2 go-composer php::setup node::setup resque::setup cron::setup logs::setup
+	mod_php5_apache2 go-composer php::setup node::setup resque::setup cron::setup logs::config logs::setup
     
 ### Configure Commands
 
