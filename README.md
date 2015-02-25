@@ -12,7 +12,7 @@
     
 ### Deploy Commands
 
-	symfony::logs logs::config logs:restart files::create symfony::parametersnodb symfony::permissions node::npm symfony::composer symfony::cache symfony::assetic apache2::restart
+	symfony::logs logs::config logs::restart files::create symfony::parametersnodb symfony::permissions node::npm symfony::composer symfony::cache symfony::assetic apache2::restart
 
 ## Worker:
 
@@ -26,7 +26,7 @@
     
 ### Deploy Commands
 
-	deploy::php symfony::logs logs::config logs:restart files::create symfony::parametersnodb symfony::permissions node::npm symfony::composer symfony::cache symfony::assetic resque::config resque::reload cron::config
+	deploy::php symfony::logs logs::config logs::restart files::create symfony::parametersnodb symfony::permissions node::npm symfony::composer symfony::cache symfony::assetic resque::config resque::reload cron::config
 
 ### Undeploy Commands
 
