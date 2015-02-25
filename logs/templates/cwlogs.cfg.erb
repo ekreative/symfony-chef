@@ -29,19 +29,19 @@ state_file = /var/awslogs/state/agent-state
 
 <% @node[:deploy].each do |app_name, deploy| %>
 [<%= app_name %>_access]
-file = /var/log/apache/<%= app_name %>-access.log
+file = /var/log/apache2/<%= app_name %>-access.log
 datetime_format = [%d/%b/%Y:%H:%M:%S %z]
 log_group_name = <%= node[:opsworks][:stack][:name].gsub(' ','_') %>_<%= app_name %>_apache_access
 log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_apache_access
 
 [<%= app_name %>_ssl_access]
-file = /var/log/apache/<%= app_name %>-ssl-access.log
+file = /var/log/apache2/<%= app_name %>-ssl-access.log
 datetime_format = [%d/%b/%Y:%H:%M:%S %z]
 log_group_name = <%= node[:opsworks][:stack][:name].gsub(' ','_') %>_<%= app_name %>_apache_ssl_access
 log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_apache_ssl_access
 
 [<%= app_name %>_error]
-file = /var/log/apache/<%= app_name %>-error.log
+file = /var/log/apache2/<%= app_name %>-error.log
 datetime_format = [%d/%b/%Y:%H:%M:%S %z]
 log_group_name = <%= node[:opsworks][:stack][:name].gsub(' ','_') %>_<%= app_name %>_apache_error
 log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_apache_error
