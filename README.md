@@ -8,11 +8,11 @@
 
 ### Configure Commands
 
-	php::ini files::create symfony::parametersnodb symfony::cache symfony::assetic apache2::restart
+	php::ini files::create symfony::parametersnodb symfony::cache apache2::restart
     
 ### Deploy Commands
 
-	symfony::logs logs::config logs::restart files::create symfony::parametersnodb symfony::permissions node::npm symfony::composer symfony::cache symfony::assetic apache2::restart
+	symfony::logs logs::config logs::restart files::create symfony::parametersnodb symfony::permissions node::npm node::bower node::gulp symfony::composer symfony::cache apache2::restart
 
 ## Worker:
 
@@ -22,11 +22,11 @@
     
 ### Configure Commands
 
-	php::configure php::ini files::create symfony::parametersnodb symfony::cache symfony::assetic resque::config resque::reload cron::config
+	php::configure php::ini files::create symfony::parametersnodb symfony::cache resque::config resque::reload cron::config
     
 ### Deploy Commands
 
-	deploy::php symfony::logs logs::config logs::restart files::create symfony::parametersnodb symfony::permissions node::npm symfony::composer symfony::cache symfony::assetic resque::config resque::reload cron::config
+	deploy::php symfony::logs logs::config logs::restart files::create symfony::parametersnodb symfony::permissions symfony::composer symfony::cache resque::config resque::reload cron::config
 
 ### Undeploy Commands
 
