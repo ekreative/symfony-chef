@@ -9,4 +9,11 @@ node[:deploy].each do |app_name, deploy|
         command "#{deploy[:deploy_to]}/current/app/console kidslox:mdm:waiting --env=prod -vv >> #{deploy[:deploy_to]}/shared/log/cron.log"
         user user
     end
+
+    cron "kidslox:mdm:feedback" do
+      minute '0'
+      hour '*/6'
+      command "#{deploy[:deploy_to]}/current/app/console kidslox:mdm:feedback --env=prod -vv >> #{deploy[:deploy_to]}/shared/log/cron.log"
+      user user
+    end
 end
