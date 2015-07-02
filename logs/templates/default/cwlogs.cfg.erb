@@ -28,6 +28,7 @@ state_file = /var/awslogs/state/agent-state
 #
 
 <% @node[:deploy].each do |app_name, deploy| %>
+<% if node[:logs][:apache] %>
 [<%= app_name %>_access]
 file = /var/log/apache2/<%= app_name %>-access.log
 datetime_format = [%d/%b/%Y:%H:%M:%S %z]
@@ -45,7 +46,8 @@ file = /var/log/apache2/<%= app_name %>-error.log
 datetime_format = [%d/%b/%Y:%H:%M:%S %z]
 log_group_name = <%= node[:opsworks][:stack][:name].gsub(' ','_') %>_<%= app_name %>_apache_error
 log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_apache_error
-
+<% end %>
+<% if node[:logs][:symfony] %>
 [<%= app_name %>_prod]
 file = <%= deploy[:deploy_to]%>/shared/log/prod.log
 datetime_format = [%Y-%m-%d %H:%M:%S]
@@ -57,8 +59,9 @@ file = <%= deploy[:deploy_to]%>/shared/log/dev.log
 datetime_format = [%Y-%m-%d %H:%M:%S]
 log_group_name = <%= node[:opsworks][:stack][:name].gsub(' ','_') %>_<%= app_name %>_symfony_dev
 log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_symfony_dev
-
-    <% for i in 0..1 do %>
+<% end %>
+<% if node[:logs][:supervisor] > 0 %>
+    <% for i in 0..node[:logs][:supervisor] do %>
 [<%= app_name %>_<%= i %>_worker_stderr]
 file = /var/log/supervisor/<%= app_name %>-<%= i %>.stderr.log
 datetime_format = [%H:%M:%S %Y-%m-%d]
@@ -77,4 +80,5 @@ file = /var/log/supervisor/supervisord.log
 datetime_format = %Y-%m-%d %H:%M:%S
 log_group_name = <%= node[:opsworks][:stack][:name].gsub(' ','_') %>_<%= app_name %>_supervisord
 log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_supervisord
+<% end %>
 <% end %>

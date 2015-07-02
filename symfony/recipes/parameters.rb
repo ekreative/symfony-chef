@@ -19,8 +19,7 @@ node[:deploy].each do |app_name, deploy|
                     :database_port => deploy[:database][:port],
                     :database_name => deploy[:database][:database],
                     :database_user => deploy[:database][:username],
-                    :database_password => deploy[:database][:password],
-                    :nodejs => "/usr/bin/node"
+                    :database_password => deploy[:database][:password]
                 }.merge(node[app_name][:parameters])
             }.to_json
         )
