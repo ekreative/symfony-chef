@@ -3,6 +3,15 @@ node[:deploy].each do |app_name, deploy|
       action :delete
       recursive true
   end
+  directory "#{deploy[:deploy_to]}/current/app/cache" do
+      group deploy[:group]
+      if platform?("ubuntu")
+          user "www-data"
+      elsif platform?("amazon")
+          user "apache"
+      end
+      recursive true
+  end
   execute "cache" do
       group deploy[:group]
       if platform?("ubuntu")
