@@ -54,6 +54,8 @@ The top key should match the application name in Opsworks
  * `files` is the name and content of any files you need to create
  * `crons` is the settings for cronjobs that you need to run
 
+Sample:
+
     {
         "my_application": {
             "parameters": {
