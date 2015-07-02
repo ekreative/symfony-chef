@@ -1,21 +1,50 @@
 DEPENDENCIES
+  apache2
+    path: apache2
   composer
-  symfony
+  ekreative-symfony
     path: .
     metadata: true
+  files
+    path: files
+  go-composer
+    path: go-composer
+  logs
+    path: logs
+  node
+    path: node
+  resque
+    path: resque
+  symfony
+    path: symfony
 
 GRAPH
+  apache2 (0.0.0)
   build-essential (2.2.3)
   chef-sugar (3.1.1)
   chef_handler (1.2.0)
   composer (2.1.0)
     php (>= 0.0.0)
     windows (>= 0.0.0)
+  ekreative-symfony (1.0.0)
+    apache2 (>= 0.0.0)
+    composer (>= 0.0.0)
+    files (>= 0.0.0)
+    go-composer (>= 0.0.0)
+    logs (>= 0.0.0)
+    node (>= 0.0.0)
+    resque (>= 0.0.0)
+    symfony (>= 0.0.0)
+  files (0.0.0)
+  go-composer (0.0.0)
+    composer (>= 0.0.0)
   iis (4.1.1)
     windows (>= 1.34.6)
+  logs (0.0.0)
   mysql (6.0.24)
     smf (>= 0.0.0)
     yum-mysql-community (>= 0.0.0)
+  node (0.0.0)
   php (1.5.0)
     build-essential (>= 0.0.0)
     iis (>= 0.0.0)
@@ -24,9 +53,11 @@ GRAPH
     xml (>= 0.0.0)
     yum-epel (>= 0.0.0)
   rbac (1.0.3)
+  resque (0.0.0)
   smf (2.2.7)
     rbac (>= 1.0.1)
-  symfony (1.0.0)
+  symfony (0.0.0)
+    composer (>= 0.0.0)
   windows (1.37.0)
     chef_handler (>= 0.0.0)
   xml (1.2.13)

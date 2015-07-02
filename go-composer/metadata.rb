@@ -1,2 +1,2 @@
-name "symfony"
+name "go-composer"
 depends "composer"
