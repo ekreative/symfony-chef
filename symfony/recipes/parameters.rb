@@ -21,7 +21,6 @@ node[:deploy].each do |app_name, deploy|
         variables(
             :params => {
                 :parameters => params
-                    .merge(redis)
                     .merge((node[app_name] and node[app_name][:parameters]) || {})
             }.to_json
         )
