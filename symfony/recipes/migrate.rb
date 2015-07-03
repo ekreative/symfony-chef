@@ -1,5 +1,5 @@
 node[:deploy].each do |app_name, deploy|
-    execute "assetic" do
+    execute "migrate" do
         group deploy[:group]
         if platform?("ubuntu")
             user "www-data"

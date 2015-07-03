@@ -17,15 +17,15 @@ node[:deploy].each do |app_name, deploy|
 
     template "#{deploy[:deploy_to]}/current/app/config/parameters.yml" do
         source "parameters.yml.erb"
-        mode 0644
+        mode 0660
+        user deploy[:user]
+        group deploy[:group]
         variables(
             :params => {
                 :parameters => params
                     .merge((node[app_name] and node[app_name][:parameters]) || {})
             }.to_json
         )
-        only_if do
-             File.directory?("#{deploy[:deploy_to]}/current/app/config")
-        end
+        only_if do File.directory?("#{deploy[:deploy_to]}/current/app/config") end
     end
 end
