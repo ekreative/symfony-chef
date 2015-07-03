@@ -10,5 +10,6 @@ node[:deploy].each do |app_name, deploy|
         cwd "#{deploy[:deploy_to]}/current"
         command "#{deploy[:deploy_to]}/current/#{node[:symfony][:console]} doctrine:migrations:migrate --no-interaction"
         returns [0, 1]
+        only_if do File.exists?("#{deploy[:deploy_to]}/current/#{node[:symfony][:console]}") end
     end
 end
