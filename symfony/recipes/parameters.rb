@@ -9,7 +9,7 @@ node[:deploy].each do |app_name, deploy|
         "memcached_host" => deploy[:memcached][:host],
         "memcached_port" => deploy[:memcached][:port]
     }
-    if node[app_name][:resque].present? and node[app_name][:resque][:redis].present?
+    if node[app_name].present? and node[app_name][:resque].present? and node[app_name][:resque][:redis].present?
         params["redis_host"] = node[app_name][:resque][:redis][:host]
         params["redis_port"] = node[app_name][:resque][:redis][:port]
         params["redis_queue"] = node[app_name][:resque][:queue]
