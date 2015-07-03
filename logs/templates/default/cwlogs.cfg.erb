@@ -60,8 +60,8 @@ datetime_format = [%Y-%m-%d %H:%M:%S]
 log_group_name = <%= node[:opsworks][:stack][:name].gsub(' ','_') %>_<%= app_name %>_symfony_dev
 log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_symfony_dev
 <% end %>
-<% if node[:logs][:supervisor] > 0 %>
-    <% for i in 0..node[:logs][:supervisor] do %>
+<% if node[app_name].present? and node[app_name][:resque].present? > 0 %>
+    <% for i in 0..(node[app_name][:resque][:workers] || node[:resque][:workers]) do %>
 [<%= app_name %>_<%= i %>_worker_stderr]
 file = /var/log/supervisor/<%= app_name %>-<%= i %>.stderr.log
 datetime_format = [%H:%M:%S %Y-%m-%d]
@@ -74,11 +74,12 @@ datetime_format = [%H:%M:%S %Y-%m-%d]
 log_group_name = <%= node[:opsworks][:stack][:name].gsub(' ','_') %>_<%= app_name %>_worker_stdout
 log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_worker_<%= i %>_stdout
     <% end %>
-
+    <% if node[app_name][:resque][:scheduler] %>
 [<%= app_name %>_supervisord]
 file = /var/log/supervisor/supervisord.log
 datetime_format = %Y-%m-%d %H:%M:%S
 log_group_name = <%= node[:opsworks][:stack][:name].gsub(' ','_') %>_<%= app_name %>_supervisord
 log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_supervisord
+	<% end %>
 <% end %>
 <% end %>
