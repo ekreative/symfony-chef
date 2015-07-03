@@ -57,6 +57,7 @@ will be set automatically.
 * `writable` - array of directorys that should be writable by apache
 * `resque` - settings for resque - this section must exist for resque to be setup for this app.
 If this is set then parameters `redis_host`, `redis_port` and `redis_queue` will be set in Symfony
+* `aliases` - a set of aliases that you want to setup in your virtual host
 
 Sample:
 
@@ -103,7 +104,11 @@ Sample:
                 "scheduler": true,
                 "bin": 'bin/resque',
                 "scheduler_bin": 'bin/resque_scheduler'
-            }
+            },
+            "aliases": [{
+                "url_path": "/url",
+                "file_path":  "/alternative/path"
+            }]
         }
     }
 
