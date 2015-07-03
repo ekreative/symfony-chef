@@ -50,9 +50,10 @@
 
 The top key should match the application name in Opsworks
 
- * `parameters` is your symfony parameters file
- * `files` is the name and content of any files you need to create
- * `crons` is the settings for cronjobs that you need to run
+* `parameters` - your symfony parameters file
+* `files` - the name and content of any files you need to create
+* `crons` - the settings for cronjobs that you need to run
+* `writable` - array of directorys that should be writable by apache
 
 Sample:
 
@@ -88,6 +89,9 @@ Sample:
                     "command": "app:command",
                     "minute": "1"
                 }
+            ],
+            "writable": [
+                "web/uploads"
             ]
         }
     }
@@ -106,7 +110,7 @@ If built on the 'php app layer' settings:
 
 ### Deploy Commands
 
-	  symfony::logs logs::config logs::restart files::create symfony::parameters symfony::permissions node::npm node::bower node::gulp symfony::composer symfony::migrate symfony::cache apache2::restart
+	  symfony::logs logs::config logs::restart files::create symfony::parameters symfony::permissions node::npm node::bower node::gulp symfony::composer symfony::assetic symfony::migrate symfony::cache apache2::restart
 
 ## Typical Worker layer
 
