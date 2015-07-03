@@ -7,7 +7,7 @@ node[:deploy].each do |app_name, deploy|
 
     if node[app_name].present? and node[app_name][:crons].present?
         node[app_name][:crons].each do |cron|
-            cron "symfony-#{cron[:name]}" do
+            cron "symfony-#{cron[:name] || cron[:command]}" do
                 minute cron[:minute] || '*'
                 hour cron[:hour] || '*'
                 day cron[:day] || '*'
