@@ -5,15 +5,17 @@ node[:deploy].each do |app_name, deploy|
         user = "apache"
     end
 
-    node[app_name][:crons].each do |cron|
-        cron "symfony-#{cron[:name]}" do
-            minute cron[:minute] || '*'
-            hour cron[:hour] || '*'
-            day cron[:day] || '*'
-            month cron[:month] || '*'
-            weekday cron[:weekday] || '*'
-            command "#{deploy[:deploy_to]}/current/#{node[:symfony][:console]} #{cron[:command]} --env=prod -vv >> #{deploy[:deploy_to]}/shared/log/cron.log"
-            user user
+    if node[app_name][:crons].present?
+        node[app_name][:crons].each do |cron|
+            cron "symfony-#{cron[:name]}" do
+                minute cron[:minute] || '*'
+                hour cron[:hour] || '*'
+                day cron[:day] || '*'
+                month cron[:month] || '*'
+                weekday cron[:weekday] || '*'
+                command "#{deploy[:deploy_to]}/current/#{node[:symfony][:console]} #{cron[:command]} --env=prod -vv >> #{deploy[:deploy_to]}/shared/log/cron.log"
+                user user
+            end
         end
-      end
+    end
 end

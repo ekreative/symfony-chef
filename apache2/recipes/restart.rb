@@ -1,3 +1,3 @@
 service "apache2" do
-  action :restart
+    action :restart
 end
