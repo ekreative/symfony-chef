@@ -8,6 +8,6 @@ node[:deploy].each do |app_name, deploy|
       end
 
       cwd "#{deploy[:deploy_to]}/current"
-      command "#{deploy[:deploy_to]}/current/app/console doctrine:migrations:migrate --no-interaction"
+      command "#{deploy[:deploy_to]}/current/#{node[:symfony][:console]} doctrine:migrations:migrate --no-interaction"
   end
 end

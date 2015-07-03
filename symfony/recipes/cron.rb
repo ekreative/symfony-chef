@@ -12,7 +12,7 @@ node[:deploy].each do |app_name, deploy|
             day cron[:day] || '*'
             month cron[:month] || '*'
             weekday cron[:weekday] || '*'
-            command "#{deploy[:deploy_to]}/current/app/console #{cron[:command]} --env=prod -vv >> #{deploy[:deploy_to]}/shared/log/cron.log"
+            command "#{deploy[:deploy_to]}/current/#{node[:symfony][:console]} #{cron[:command]} --env=prod -vv >> #{deploy[:deploy_to]}/shared/log/cron.log"
             user user
         end
       end
