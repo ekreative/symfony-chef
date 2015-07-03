@@ -11,5 +11,6 @@ node[:deploy].each do |app_name, deploy|
             owner "apache"
         end
         to "#{deploy[:deploy_to]}/shared/log"
+        only_if do File.directory?("#{deploy[:deploy_to]}/current/app") end
     end
 end
