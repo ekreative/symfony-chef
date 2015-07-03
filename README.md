@@ -36,13 +36,13 @@
 ### Symfony
 
 * `symfony::assetic` - assetic:dump --env=prod
-* `symfony::cache` - Clear the symfony cache
+* `symfony::cache` - Clear the Symfony cache
 * `symfony::composer` - Run composer install in application dir
-* `symfony::cron` - Create cron jobs for the symfony commands in JSON
+* `symfony::cron` - Create cron jobs for the Symfony commands in JSON
 * `symfony::ini` - php.ini settings
-* `symfony::logs` - Link symfony log files into the shared logs folder
+* `symfony::logs` - Link Symfony log files into the shared logs folder
 * `symfony::migrate` - Run doctrine migrations
-* `symfony::parameters` - Create the symfony parameters files from JSON
+* `symfony::parameters` - Create the Symfony parameters files from JSON
 * `symfony::permissions` - Set permissions on logs and cache so that apache can write to them
 * `symfony::setup` - Install some common php packages
 
@@ -50,10 +50,13 @@
 
 The top key should match the application name in Opsworks
 
-* `parameters` - your symfony parameters file
+* `parameters` - your Symfony parameters file - If a database is attached in Opsworks then the parameters `database_*`
+will be set automatically.
 * `files` - the name and content of any files you need to create
 * `crons` - the settings for cronjobs that you need to run
 * `writable` - array of directorys that should be writable by apache
+* `resque` - settings for resque - this section must exist for resque to be setup for this app.
+If this is set then parameters `redis_host`, `redis_port` and `redis_queue` will be set in Symfony
 
 Sample:
 
@@ -73,10 +76,7 @@ Sample:
                 "mailer_password": "smtp user secret",
                 "mailer_transport": "smtp",
                 "mailer_user": "smtp user key",
-                "redis_host": "cache.kidslox.com",
-                "redis_port": 6379,
-                "redis_queue": "test",
-                "router.request_context.host": "my.app.com",
+                "router.request_context.host": "www.app.com",
                 "router.request_context.scheme": "https",
                 "secret": "Some symfony secret",
             },
@@ -92,7 +92,18 @@ Sample:
             ],
             "writable": [
                 "web/uploads"
-            ]
+            ],
+            "resque": {
+                "workers": 1,
+                "redis": {
+                    "host": "localhost",
+                    "port": 6379
+                },
+                "queue": "default",
+                "scheduler": true,
+                "bin": 'bin/resque',
+                "scheduler_bin": 'bin/resque_scheduler'
+            }
         }
     }
 
