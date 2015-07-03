@@ -13,7 +13,7 @@ node[:deploy].each do |app_name, deploy|
                     "database_password" => deploy[:database][:password],
                     "memcached_host" => deploy[:memcached][:host],
                     "memcached_port" => deploy[:memcached][:port]
-                }.merge(node[app_name][:parameters] || {})
+                }.merge((node[app_name] and node[app_name][:parameters]) || {})
             }.to_json
         )
         only_if do
