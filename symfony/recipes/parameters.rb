@@ -10,7 +10,9 @@ node[:deploy].each do |app_name, deploy|
                     "database_port" => deploy[:database][:port],
                     "database_name" => deploy[:database][:database],
                     "database_user" => deploy[:database][:username],
-                    "database_password" => deploy[:database][:password]
+                    "database_password" => deploy[:database][:password],
+                    "memcached_host" => deploy[:memcached][:host],
+                    "memcached_port" => deploy[:memcached][:port]
                 }.merge(node[app_name][:parameters])
             }.to_json
         )
