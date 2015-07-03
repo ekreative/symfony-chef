@@ -5,12 +5,12 @@ node[:deploy].each do |app_name, deploy|
         variables(
             :params => {
                 :parameters => {
-                    :database_driver => "pdo_mysql",
-                    :database_host => deploy[:database][:host],
-                    :database_port => deploy[:database][:port],
-                    :database_name => deploy[:database][:database],
-                    :database_user => deploy[:database][:username],
-                    :database_password => deploy[:database][:password]
+                    "database_driver" => "pdo_#{deploy[:database][:adapter]}",
+                    "database_host" => deploy[:database][:host],
+                    "database_port" => deploy[:database][:port],
+                    "database_name" => deploy[:database][:database],
+                    "database_user" => deploy[:database][:username],
+                    "database_password" => deploy[:database][:password]
                 }.merge(node[app_name][:parameters])
             }.to_json
         )
