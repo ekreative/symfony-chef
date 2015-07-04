@@ -28,8 +28,8 @@
   CustomLog <%= node[:apache][:log_dir] %>/<%= @params[:name] %>-ganglia.log ganglia
 
   <% if node[:deploy][application_name].present? and node[:deploy][application_name][:aliases] %>
-  <% node[:deploy][application_name][:aliases].each do |alias| %>
-  Alias <%= alias[:url_path] %> <%= @params[:docroot] %><%= alias[:file_path] %>
+  <% node[:deploy][application_name][:aliases].each do |an_alias| %>
+  Alias <%= an_alias[:url_path] %> <%= @params[:docroot] %><%= an_alias[:file_path] %>
   <% end %>
   <% end %>
 
