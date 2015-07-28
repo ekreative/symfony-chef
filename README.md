@@ -54,9 +54,22 @@ The top key should match the application name in Opsworks
 will be set automatically.
 * `files` - the name and content of any files you need to create
 * `crons` - the settings for cronjobs that you need to run
+  *  `command` - the command and arguments
+  * `symfony` - default true - means you are running a symfony command, it will be run in `prod`
+  * `minute` - cron format for the time to run at, default `*`
+  * `hour` - default `*`
+  * `day` - default `*`
+  * `month` - default `*`
+  * `weekday` - default `*`
 * `writable` - array of directorys that should be writable by apache
-* `resque` - settings for resque - this section must exist for resque to be setup for this app.
-If this is set then parameters `redis_host`, `redis_port` and `redis_queue` will be set in Symfony
+* `resque` - settings for resque - this section must exist for resque to be setup for this app. If this is set then parameters `redis_host`, `redis_port` and `redis_queue` will be set in Symfony
+  * `workers` - number of worker, default `node['cpu']['total']`
+  * `queue` - queue name, default `default`
+  * `bin` - location of resque commands, default `bin/resque`
+  * `scheduler` - enable resque_scheduler, default `false`
+  * `scheduler_bin` - location of scheduler command, default `bin/resque_scheduler`
+  * `redis.host` - redis host name, default `localhost`
+  * `redis.port` - redis port, default `6379`
 * `aliases` - a set of aliases that you want to setup in your virtual host
 
 Sample:
@@ -109,10 +122,16 @@ Sample:
                 "url_path": "/url",
                 "file_path":  "/alternative/path"
             }]
+        },
+        "thumbor": {
+            "key": "This-Is-A-Secret-Key",
+            "options": {
+                "ALLOW_UNSAFE_URL": false
+            }
         }
     }
 
-## Typical PHP App Server:
+## Typical PHP App Server layer:
 
 If built on the 'php app layer' settings:
 
@@ -151,3 +170,11 @@ If built on the 'custom layer' settings:
 ### Shutdown Commands
 
 	  apache2::stop
+
+## Typical Thumbor layer
+
+If built on the 'custom layer' settings:
+
+### Setup Commands
+
+    thumbor::default
