@@ -20,6 +20,23 @@
 * `logs::setup` - Install CloudWatch daemon
 * `logs::restart` - Restart CloudWatch daemon
 
+You will need to give your instances permission to access cloud watch, this IAM policy on your instance role should work
+
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "logs:*"
+          ],
+          "Resource": [
+            "arn:aws:logs:*:*:*"
+          ]
+        }
+      ]
+    }
+
 ### Node
 
 * `node:bower` - Run bower install (bower should be installed using the package.json of the project)
