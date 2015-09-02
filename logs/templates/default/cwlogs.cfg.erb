@@ -28,7 +28,7 @@ log_group_name = <%= stackname %>_<%= app_name %>_apache_error
 log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_apache_error
 
     <% end %>
-    <% if node[:logs][:symfony] and File.directory?("#{deploy[:deploy_to]}/current/app") %>
+    <% if node[:logs][:symfony] %>
 
 [<%= app_name %>_prod]
 file = <%= deploy[:deploy_to]%>/shared/log/prod.log
