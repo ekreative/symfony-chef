@@ -14,7 +14,7 @@ remote_file "/opt/aws/cloudwatch-metrics/CloudWatchMonitoringScripts.zip" do
 end
 
 execute "Unzip the scripts" do
-    command "unzip /opt/aws/cloudwatch-metrics/CloudWatchMonitoringScripts.zip"
+    command "unzip -o /opt/aws/cloudwatch-metrics/CloudWatchMonitoringScripts.zip"
     cwd "/opt/aws/cloudwatch-metrics"
 end
 
