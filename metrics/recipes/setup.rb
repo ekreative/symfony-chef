@@ -20,5 +20,5 @@ end
 
 cron "cloudwatch-metrics" do
     minute '*/5'
-    command '/opt/aws/cloudwatch-metrics/mon-put-instance-data.pl --disk-path=/ --disk-space-util --disk-space-used --disk-space-avail --from-cron'
+    command '/opt/aws/cloudwatch-metrics/aws-scripts-mon/mon-put-instance-data.pl --disk-path=/ --disk-space-util --disk-space-used --disk-space-avail --from-cron'
 end

@@ -20,7 +20,7 @@
 * `logs::setup` - Install CloudWatch daemon
 * `logs::restart` - Restart CloudWatch daemon
 
-You will need to give your instances permission to access cloud watch, this IAM policy on your instance role should work
+You will need to give your instances permission to access cloud watch logs, this IAM policy on your instance role should work
 
     {
       "Version": "2012-10-17",
@@ -40,6 +40,24 @@ You will need to give your instances permission to access cloud watch, this IAM 
 ### Metrics
 
 * `metrics::setup` - Setup the CloudWatch monitoring - will report disk usage stats
+
+You will need to give your instances permission to access cloud watch, this IAM policy on your instance role should work
+
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Sid": "Stmt1441183867000",
+                "Effect": "Allow",
+                "Action": [
+                    "cloudwatch:PutMetricData"
+                ],
+                "Resource": [
+                    "*"
+                ]
+            }
+        ]
+    }
 
 ### Node
 
