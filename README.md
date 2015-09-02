@@ -184,7 +184,7 @@ If built on the 'php app layer' settings:
 
 ### Deploy Commands
 
-	  symfony::logs logs::config logs::restart files::create symfony::parameters symfony::permissions node::npm node::bower node::gulp symfony::composer symfony::assetic symfony::migrate symfony::cache apache2::restart
+    symfony::logs logs::config logs::restart files::create symfony::parameters symfony::permissions node::npm node::bower node::gulp symfony::composer symfony::assetic symfony::migrate symfony::cache apache2::restart
 
 ## Typical Worker layer
 
