@@ -37,6 +37,10 @@ You will need to give your instances permission to access cloud watch, this IAM 
       ]
     }
 
+### Metrics
+
+* `metrics::setup` - Setup the CloudWatch monitoring - will report disk usage stats
+
 ### Node
 
 * `node:bower` - Run bower install (bower should be installed using the package.json of the project)
@@ -154,7 +158,7 @@ If built on the 'php app layer' settings:
 
 ### Setup Commands
 
-    go-composer symfony::setup node::setup logs::config logs::setup
+    go-composer symfony::setup node::setup logs::config logs::setup metrics::setup
 
 ### Configure Commands
 
@@ -170,7 +174,7 @@ If built on the 'custom layer' settings:
 
 ### Setup Commands
 
-	  mod_php5_apache2 go-composer symfony::setup resque::setup logs::config logs::setup
+	  mod_php5_apache2 go-composer symfony::setup resque::setup logs::config logs::setup metrics::setup
 
 ### Configure Commands
 
