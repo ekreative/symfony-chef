@@ -5,8 +5,8 @@ numprocs=<%= @number %>
 user=<%= @user %>
 autostart=true
 autorestart=true
-stdout_logfile=/var/log/supervisor/<%= @name %>-%(process_num).stdout.log
+stdout_logfile=/var/log/supervisor/<%= @name %>-%(process_num)s.stdout.log
 stdout_logfile_backups=3
-stderr_logfile=/var/log/supervisor/<%= @name %>-%(process_num).stderr.log
+stderr_logfile=/var/log/supervisor/<%= @name %>-%(process_num)s.stderr.log
 stderr_logfile_backups=3
 environment=<% if defined?(@queue) %>QUEUE="<%= @queue %>", <% end %><% if defined?(@backend) %>REDIS_BACKEND="<%= @backend %>", <% end %>VVERBOSE="1"
