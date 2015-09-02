@@ -11,11 +11,15 @@ datetime_format = [%d/%b/%Y:%H:%M:%S %z]
 log_group_name = <%= stackname %>_<%= app_name %>_apache_access
 log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_apache_access
 
+        <% if deploy[:ssl_support] %>
+
 [<%= app_name %>_ssl_access]
 file = /var/log/apache2/<%= app_name %>-ssl-access.log
 datetime_format = [%d/%b/%Y:%H:%M:%S %z]
 log_group_name = <%= stackname %>_<%= app_name %>_apache_ssl_access
 log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_apache_ssl_access
+
+        <% end %>
 
 [<%= app_name %>_error]
 file = /var/log/apache2/<%= app_name %>-error.log
