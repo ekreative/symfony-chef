@@ -1,1 +1,3 @@
 name "logs"
+
+depends "resque"
