@@ -6,6 +6,14 @@
 
 * `apache2::restart` - Restart apache (important to clear the apc cache)
 
+#### Attributes
+
+* `[:apache][:prefork][:maxrequestworkers]` - Default is instance memory / 80Mb
+* `[:apache][:log_filter]` - Array of ``{variable => regex}`` pairs to filter from logs, defaults:
+  * `{'User-Agent' => 'ELB-HealthChecker'}`
+  * `{'User-Agent' => 'Amazon Route 53 Health Check Service'}`
+  * `{'Remote_Addr' => '127\.0\.0\.1'}`
+
 ### Files
 
 * `files:create` - create files in the app directory from JSON (useful for key files etc)
@@ -36,6 +44,11 @@ You will need to give your instances permission to access cloud watch logs, this
         }
       ]
     }
+
+#### Attributes
+
+* `[:logs][:apache]` - enable sending apache logs to CloudWatch logs
+* `[:logs][:symfony]` - enable sending symfony logs (prod and dev) to CloudWatch logs
 
 ### Metrics
 
