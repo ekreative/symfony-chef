@@ -116,7 +116,7 @@ will be set automatically.
 * `writable` - array of directorys that should be writable by apache
 * `resque` - settings for resque - this section must exist for resque to be setup for this app. If this is set then parameters `redis_host`, `redis_port` and `redis_queue` will be set in Symfony
   * `workers` - number of worker, default `node['cpu']['total']`
-  * `queue` - queue name, default `default`
+  * `queue` - queue name, default `default`, multiple queues can be separated with a comma, and the order that they're supplied in is the order that they're checked in.
   * `bin` - location of resque commands, default `bin/resque`
   * `scheduler` - enable resque_scheduler, default `false`
   * `scheduler_bin` - location of scheduler command, default `bin/resque_scheduler`
