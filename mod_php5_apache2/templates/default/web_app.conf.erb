@@ -102,7 +102,14 @@
 
   LogLevel <%= node[:apache][:log_level] %>
   ErrorLog <%= node[:apache][:log_dir] %>/<%= @params[:name] %>-error.log
-  CustomLog <%= node[:apache][:log_dir] %>/<%= @params[:name] %>-ssl-access.log combined
+
+  <% node[:apache][:log_filter].each do |filter| %>
+    <% filter.each do |key, value| %>
+  SetEnvIf <%= key %> "<%= value %>" SKIP_LOG
+    <% end %>
+  <% end %>
+
+  CustomLog <%= node[:apache][:log_dir] %>/<%= @params[:name] %>-ssl-access.log combined env=!SKIP_LOG
   CustomLog <%= node[:apache][:log_dir] %>/<%= @params[:name] %>-ssl-ganglia.log ganglia
 
   <% if node[:deploy][@application_name].present? and node[:deploy][@application_name][:aliases] %>
