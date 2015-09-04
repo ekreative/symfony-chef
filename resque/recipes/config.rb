@@ -26,7 +26,7 @@ node[:deploy].each do |app_name, deploy|
                 :queue => node[app_name][:resque][:queue] || node[:resque][:queue],
                 :backend => "#{host}:#{port}",
                 :app_include => app_include && "#{deploy[:deploy_to]}/current/#{app_include}",
-                :prefix = node[app_name][:resque][:prefix]
+                :prefix => node[app_name][:resque][:prefix]
             )
         end
         if node[app_name][:resque][:scheduler]
@@ -39,7 +39,7 @@ node[:deploy].each do |app_name, deploy|
                     :number => 1,
                     :user => user,
                     :backend => "#{host}:#{port}",
-                    :prefix = node[app_name][:resque][:prefix]
+                    :prefix => node[app_name][:resque][:prefix]
                 )
             end
         end
