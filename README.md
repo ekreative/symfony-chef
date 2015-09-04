@@ -114,7 +114,7 @@ will be set automatically.
   * `month` - default `*`
   * `weekday` - default `*`
 * `writable` - array of directorys that should be writable by apache
-* `resque` - settings for resque - this section must exist for resque to be setup for this app. If this is set then parameters `redis_host`, `redis_port` and `redis_queue` will be set in Symfony
+* `resque` - settings for resque - this section must exist for resque to be setup for this app. If this is set then parameters `redis_host`, `redis_port` and `resque_queue` will be set in Symfony
   * `workers` - number of worker, default `node['cpu']['total']`
   * `queue` - queue name, default `default`, multiple queues can be separated with a comma, and the order that they're supplied in is the order that they're checked in.
   * `bin` - location of resque commands, default `bin/resque`
@@ -123,6 +123,7 @@ will be set automatically.
   * `redis.host` - redis host name, default `localhost`
   * `redis.port` - redis port, default `6379`
   * `app_include` - defaults to `app/bootstrap.php.cache` to make sure annotations are loaded an improve load time
+  * `prefix` - set the prefix for all redis keys
 * `aliases` - a set of aliases that you want to setup in your virtual host
 
 Sample:
@@ -166,7 +167,8 @@ Sample:
                     "port": 6379
                 },
                 "queue": "default",
-                "scheduler": true
+                "scheduler": true,
+                "prefix": "my_app"
             },
             "aliases": [{
                 "url_path": "/url",

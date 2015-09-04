@@ -9,10 +9,18 @@ node[:deploy].each do |app_name, deploy|
         "memcached_host" => deploy[:memcached][:host],
         "memcached_port" => deploy[:memcached][:port]
     }
-    if node[app_name].present? and node[app_name][:resque].present? and node[app_name][:resque][:redis].present?
-        params["redis_host"] = node[app_name][:resque][:redis][:host]
-        params["redis_port"] = node[app_name][:resque][:redis][:port]
-        params["redis_queue"] = node[app_name][:resque][:queue]
+    if node[app_name].present? and node[app_name][:resque].present?
+        host = node[:resque][:host]
+        port = node[:resque][:port]
+        if node[app_name][:resque][:redis].present?
+            host = node[app_name][:resque][:redis][:host] || host
+            port = node[app_name][:resque][:redis][:port] || port
+        end
+
+        params["redis_host"] = host
+        params["redis_port"] = port
+        params["resque_queue"] = node[app_name][:resque][:queue] || node[:resque][:queue]
+        params["resque_prefix"] = node[app_name][:resque][:prefix]
     end
 
     template "#{deploy[:deploy_to]}/current/app/config/parameters.yml" do

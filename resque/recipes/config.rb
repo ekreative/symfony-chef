@@ -25,7 +25,8 @@ node[:deploy].each do |app_name, deploy|
                 :user => user,
                 :queue => node[app_name][:resque][:queue] || node[:resque][:queue],
                 :backend => "#{host}:#{port}",
-                :app_include => app_include && "#{deploy[:deploy_to]}/current/#{app_include}"
+                :app_include => app_include && "#{deploy[:deploy_to]}/current/#{app_include}",
+                :prefix = node[app_name][:resque][:prefix]
             )
         end
         if node[app_name][:resque][:scheduler]
@@ -37,7 +38,8 @@ node[:deploy].each do |app_name, deploy|
                     :command => "#{deploy[:deploy_to]}/current/#{node[app_name][:resque][:scheduler_bin] || node[:resque][:resque_scheduler_bin]}",
                     :number => 1,
                     :user => user,
-                    :backend => "#{host}:#{port}"
+                    :backend => "#{host}:#{port}",
+                    :prefix = node[app_name][:resque][:prefix]
                 )
             end
         end
