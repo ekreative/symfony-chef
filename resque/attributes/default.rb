@@ -5,3 +5,4 @@ default[:resque][:workers] = node['cpu']['total']
 default[:resque][:queue] = 'default'
 default[:resque][:host] = 'localhost'
 default[:resque][:port] = 'localhost'
+default[:resque][:verbose] = true

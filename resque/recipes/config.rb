@@ -22,7 +22,8 @@ node[:deploy].each do |app_name, deploy|
                 :number => node[app_name][:resque][:workers] || node[:resque][:workers],
                 :user => user,
                 :queue => node[app_name][:resque][:queue] || node[:resque][:queue],
-                :backend => "#{host}:#{port}"
+                :backend => "#{host}:#{port}",
+                :app_include => "#{deploy[:deploy_to]}/current/app/bootstrap.php.cache"
             )
         end
         if node[app_name][:resque][:scheduler]
