@@ -122,6 +122,7 @@ will be set automatically.
   * `scheduler_bin` - location of scheduler command, default `bin/resque_scheduler`
   * `redis.host` - redis host name, default `localhost`
   * `redis.port` - redis port, default `6379`
+  * `app_include` - defaults to `app/bootstrap.php.cache` to make sure annotations are loaded an improve load time
 * `aliases` - a set of aliases that you want to setup in your virtual host
 
 Sample:
@@ -160,15 +161,12 @@ Sample:
                 "web/uploads"
             ],
             "resque": {
-                "workers": 1,
                 "redis": {
                     "host": "localhost",
                     "port": 6379
                 },
                 "queue": "default",
-                "scheduler": true,
-                "bin": 'bin/resque',
-                "scheduler_bin": 'bin/resque_scheduler'
+                "scheduler": true
             },
             "aliases": [{
                 "url_path": "/url",

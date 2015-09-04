@@ -1,13 +1,13 @@
-directory "/opt/aws/cloudwatch" do
+directory node[:logs][:install_dir] do
   recursive true
 end
 
-remote_file "/opt/aws/cloudwatch/awslogs-agent-setup.py" do
-  source "https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/awslogs-agent-setup.py"
+remote_file "#{node[:logs][:install_dir]}/#{node[:logs][:script]}" do
+  source node[:logs][:script_url]
   mode "0755"
 end
 
 execute "Install CloudWatch Logs agent" do
-  command "/opt/aws/cloudwatch/awslogs-agent-setup.py -n -r #{node[:logs][:region]} -c /tmp/cwlogs.cfg"
+  command "#{node[:logs][:install_dir]}/#{node[:logs][:script]} -n -r #{node[:logs][:region]} -c /tmp/cwlogs.cfg"
   not_if { system "pgrep -f aws-logs-agent-setup" }
 end

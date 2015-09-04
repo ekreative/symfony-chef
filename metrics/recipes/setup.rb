@@ -1,24 +1,24 @@
-['unzip', 'libwww-perl', 'libdatetime-perl'].each do |package_name|
+node[:metrics][:packages].each do |package_name|
     package package_name do
         action :install
     end
 end
 
 
-directory "/opt/aws/cloudwatch-metrics" do
+directory node[:metrics][:install_dir] do
     recursive true
 end
 
-remote_file "/opt/aws/cloudwatch-metrics/CloudWatchMonitoringScripts.zip" do
+remote_file "#{node[:metrics][:install_dir]}/CloudWatchMonitoringScripts.zip" do
     source node[:metrics][:script_url]
 end
 
 execute "Unzip the scripts" do
-    command "unzip -o /opt/aws/cloudwatch-metrics/CloudWatchMonitoringScripts.zip"
-    cwd "/opt/aws/cloudwatch-metrics"
+    command "unzip -o #{node[:metrics][:install_dir]}/CloudWatchMonitoringScripts.zip"
+    cwd node[:metrics][:install_dir]
 end
 
 cron "cloudwatch-metrics" do
     minute '*/5'
-    command '/opt/aws/cloudwatch-metrics/aws-scripts-mon/mon-put-instance-data.pl --disk-path=/ --disk-space-util --disk-space-used --disk-space-avail --from-cron'
+    command "#{node[:metrics][:install_dir]}/#{node[:metrics][:script]} --from-cron #{node[:metrics][:flags]}"
 end

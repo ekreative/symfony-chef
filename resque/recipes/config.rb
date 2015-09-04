@@ -13,6 +13,8 @@ node[:deploy].each do |app_name, deploy|
             port = node[app_name][:resque][:redis][:port] || port
         end
 
+        app_include = node[app_name][:resque][:app_include] || node[:resque][:app_include]
+
         template "/etc/supervisor/conf.d/#{app_name}.conf" do
             source "process.conf.erb"
             mode 0644
@@ -23,7 +25,7 @@ node[:deploy].each do |app_name, deploy|
                 :user => user,
                 :queue => node[app_name][:resque][:queue] || node[:resque][:queue],
                 :backend => "#{host}:#{port}",
-                :app_include => "#{deploy[:deploy_to]}/current/app/bootstrap.php.cache"
+                :app_include => app_include && "#{deploy[:deploy_to]}/current/#{app_include}"
             )
         end
         if node[app_name][:resque][:scheduler]
