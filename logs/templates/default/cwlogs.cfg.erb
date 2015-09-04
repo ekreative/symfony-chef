@@ -32,13 +32,13 @@ log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_apache_error
 
 [<%= app_name %>_prod]
 file = <%= deploy[:deploy_to]%>/shared/log/prod.log
-datetime_format = [%Y-%m-%d %H:%M:%S]
+datetime_format = <%= node[:logs][:symfony_datetime] %>
 log_group_name = <%= stackname %>_<%= app_name %>_symfony_prod
 log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_symfony_prod
 
 [<%= app_name %>_dev]
 file = <%= deploy[:deploy_to]%>/shared/log/dev.log
-datetime_format = [%Y-%m-%d %H:%M:%S]
+datetime_format = <%= node[:logs][:symfony_datetime] %>
 log_group_name = <%= stackname %>_<%= app_name %>_symfony_dev
 log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_symfony_dev
 
