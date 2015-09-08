@@ -13,7 +13,22 @@ node[:deploy].each do |app_name, deploy|
             port = node[app_name][:resque][:redis][:port] || port
         end
 
+        resque_env = {
+            'REDIS_BACKEND' => "#{host}:#{port}",
+            'INTERVAL' => node[app_name][:resque][:interval] || node[:resque][:interval],
+            'QUEUE' => node[app_name][:resque][:queue] || node[:resque][:queue],
+            'PREFIX' => node[app_name][:resque][:prefix],
+            'BLOCKING' => node[app_name][:resque][:blocking] || node[:resque][:blocking]
+        }
+
+        if (node[:resque][:verbose])
+            resque_env['VVERBOSE'] = '1'
+        end
+
         app_include = node[app_name][:resque][:app_include] || node[:resque][:app_include]
+        if app_include
+            resque_env['APP_INCLUDE'] = "#{deploy[:deploy_to]}/current/#{app_include}"
+        end
 
         template "/etc/supervisor/conf.d/#{app_name}.conf" do
             source "process.conf.erb"
@@ -23,14 +38,20 @@ node[:deploy].each do |app_name, deploy|
                 :command => "#{deploy[:deploy_to]}/current/#{node[app_name][:resque][:bin] || node[:resque][:resque_bin]}",
                 :number => node[app_name][:resque][:workers] || node[:resque][:workers],
                 :user => user,
-                :queue => node[app_name][:resque][:queue] || node[:resque][:queue],
-                :backend => "#{host}:#{port}",
-                :app_include => app_include && "#{deploy[:deploy_to]}/current/#{app_include}",
-                :prefix => node[app_name][:resque][:prefix],
-                :interval => node[app_name][:resque][:interval] || node[:resque][:interval]
-                :blocking => node[app_name][:resque][:blocking] || node[:resque][:blocking]
+                :env => resque_env
             )
         end
+
+        resque_scheduler_env = {
+            'REDIS_BACKEND' => "#{host}:#{port}",
+            'INTERVAL' => node[app_name][:resque][:interval] || node[:resque][:interval],
+            'PREFIX' => node[app_name][:resque][:prefix]
+        }
+
+        if (node[:resque][:verbose])
+            resque_scheduler_env['VVERBOSE'] = '1'
+        end
+
         if node[app_name][:resque][:scheduler]
             template "/etc/supervisor/conf.d/#{app_name}-scheduler.conf" do
                 source "process.conf.erb"
@@ -40,9 +61,7 @@ node[:deploy].each do |app_name, deploy|
                     :command => "#{deploy[:deploy_to]}/current/#{node[app_name][:resque][:scheduler_bin] || node[:resque][:resque_scheduler_bin]}",
                     :number => 1,
                     :user => user,
-                    :backend => "#{host}:#{port}",
-                    :prefix => node[app_name][:resque][:prefix],
-                    :interval => node[app_name][:resque][:interval] || node[:resque][:interval]
+                    :env => resque_scheduler_env
                 )
             end
         end

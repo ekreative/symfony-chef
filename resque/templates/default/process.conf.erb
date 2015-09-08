@@ -9,4 +9,4 @@ stdout_logfile=/var/log/supervisor/<%= @name %>-%(process_num)s.stdout.log
 stdout_logfile_backups=3
 stderr_logfile=/var/log/supervisor/<%= @name %>-%(process_num)s.stderr.log
 stderr_logfile_backups=3
-environment=REDIS_BACKEND="<%= @backend %>", INTERVAL="<%= @interval %>", <% if defined?(@queue) %>QUEUE="<%= @queue %>", <% end %><% if defined?(@app_include) && @app_include %>APP_INCLUDE="<%= @app_include %>", <% end %><% if defined?(@prefix) && @prefix %>PREFIX="<%= @prefix %>", <% end %><% if defined?(@blocking) %>BLOCKING="<%= @blocking %>", <% end %><% if node[:resque][:verbose] %>VVERBOSE="1"<% end %>
+environment=<% env.each do |key, value| %><% if value %><%= key %>="<%= value %>"<% end %><% end %>
