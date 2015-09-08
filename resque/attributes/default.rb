@@ -8,3 +8,4 @@ default[:resque][:port] = 'localhost'
 default[:resque][:verbose] = true
 default[:resque][:app_include] = 'app/bootstrap.php.cache'
 default[:resque][:interval] = 5
+default[:resque][:blocking] = false

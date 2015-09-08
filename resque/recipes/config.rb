@@ -28,6 +28,7 @@ node[:deploy].each do |app_name, deploy|
                 :app_include => app_include && "#{deploy[:deploy_to]}/current/#{app_include}",
                 :prefix => node[app_name][:resque][:prefix],
                 :interval => node[app_name][:resque][:interval] || node[:resque][:interval]
+                :blocking => node[app_name][:resque][:blocking] || node[:resque][:blocking]
             )
         end
         if node[app_name][:resque][:scheduler]
