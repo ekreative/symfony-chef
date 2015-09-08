@@ -124,6 +124,7 @@ will be set automatically.
   * `redis.port` - redis port, default `6379`
   * `app_include` - defaults to `app/bootstrap.php.cache` to make sure annotations are loaded an improve load time
   * `prefix` - set the prefix for all redis keys
+  * `interval` - how long, in seconds, to sleep between jobs, default `5`
 * `aliases` - a set of aliases that you want to setup in your virtual host
 
 Sample:
