@@ -9,3 +9,4 @@ default[:resque][:verbose] = true
 default[:resque][:app_include] = 'app/bootstrap.php.cache'
 default[:resque][:interval] = 5
 default[:resque][:blocking] = false
+default[:resque][:interval_scheduler] = 5

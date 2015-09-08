@@ -44,7 +44,7 @@ node[:deploy].each do |app_name, deploy|
 
         resque_scheduler_env = {
             'REDIS_BACKEND' => "#{host}:#{port}",
-            'INTERVAL' => node[app_name][:resque][:interval] || node[:resque][:interval],
+            'INTERVAL' => node[app_name][:resque][:interval_scheduler] || node[:resque][:interval_scheduler],
             'PREFIX' => node[app_name][:resque][:prefix]
         }
 

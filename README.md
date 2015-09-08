@@ -125,6 +125,7 @@ will be set automatically.
   * `app_include` - defaults to `app/bootstrap.php.cache` to make sure annotations are loaded an improve load time
   * `prefix` - set the prefix for all redis keys
   * `interval` - how long, in seconds, to sleep between jobs, default `5`
+  * `interval_scheduler` - how long, in seconds, to sleep between checking for scheduled jobs, default `5`
   * `blocking` - if true the worker uses BLPOP to wait for jobs, and `interval` is the timeout, default `false`
 * `aliases` - a set of aliases that you want to setup in your virtual host
 
