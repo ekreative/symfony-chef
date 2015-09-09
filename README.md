@@ -208,23 +208,19 @@ If built on the 'custom layer' settings:
 
 ### Setup Commands
 
-	  mod_php5_apache2 go-composer symfony::setup resque::setup logs::config logs::setup metrics::setup
+    go-composer symfony::setup resque::setup logs::config logs::setup metrics::setup
 
 ### Configure Commands
 
-	  php::configure symfony::ini files::create symfony::parameters symfony::cache resque::config resque::reload symfony::cron
+    php::configure symfony::ini files::create symfony::parameters symfony::cache resque::config resque::reload symfony::cron
 
 ### Deploy Commands
 
-	  deploy::php symfony::logs logs::config logs::restart files::create symfony::parameters symfony::permissions symfony::composer symfony::migrate symfony::cache resque::config resque::reload symfony::cron
+    deploy::php symfony::logs logs::config logs::restart files::create symfony::parameters symfony::permissions symfony::composer symfony::migrate symfony::cache resque::config resque::reload symfony::cron
 
 ### Undeploy Commands
 
-	  deploy::php-undeploy
-
-### Shutdown Commands
-
-	  apache2::stop
+    deploy::php-undeploy
 
 ## Typical Thumbor layer
 
