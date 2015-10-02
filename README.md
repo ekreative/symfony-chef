@@ -104,7 +104,7 @@ The top key should match the application name in Opsworks
 
 * `parameters` - your Symfony parameters file - If a database is attached in Opsworks then the parameters `database_*`
 will be set automatically.
-* `files` - the name and content of any files you need to create
+* `files` - the name and content of any files you need to create, file names are relative to the project directory, or start with a /
 * `crons` - the settings for cronjobs that you need to run
   *  `command` - the command and arguments
   * `symfony` - default true - means you are running a symfony command, it will be run in `prod`
