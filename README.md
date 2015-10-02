@@ -98,6 +98,15 @@ You will need to give your instances permission to access cloud watch, this IAM 
 * `symfony::permissions` - Set permissions on logs and cache so that apache can write to them
 * `symfony::setup` - Install some common php packages
 
+#### Attributes
+
+* `[:symfony][:ini]` - PHP ini settings to add
+* `[:symfony][:console]` - The location of the symfony console, default `'app/console'`
+* `[:symfony][:writable]` - array of folders that should be writable by the web server, default `['app/cache']`
+  * `{'User-Agent' => 'ELB-HealthChecker'}`
+  * `{'User-Agent' => 'Amazon Route 53 Health Check Service'}`
+  * `{'Remote_Addr' => '127\.0\.0\.1'}`
+
 ## Sample JSON
 
 The top key should match the application name in Opsworks
@@ -182,6 +191,11 @@ Sample:
             "key": "This-Is-A-Secret-Key",
             "options": {
                 "ALLOW_UNSAFE_URL": false
+            }
+        },
+        "symfony": {
+            "ini": {
+                "upload_max_filesize": "2M"
             }
         }
     }
