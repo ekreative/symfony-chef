@@ -1,4 +1,5 @@
 source 'https://api.berkshelf.com'
 
-cookbook 'composer'
-cookbook 'thumbor', git: 'https://github.com/zanui/chef-thumbor.git'
+cookbook 'composer', '~> 2.2.1'
+cookbook 'thumbor', '~> 1.0.2'
+cookbook 'blackfire', '~> 2.0.1'
