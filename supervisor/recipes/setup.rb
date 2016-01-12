@@ -1,4 +1,4 @@
-node[:resque][:packages].each do |package_name|
+node[:supervisor][:packages].each do |package_name|
     package package_name do
       action :install
     end

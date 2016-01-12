@@ -81,9 +81,12 @@ You will need to give your instances permission to access cloud watch, this IAM 
 
 ### Resque
 
-* `resque::setup` - Installs supervisor
 * `resque::config` - Configure workers
-* `resque::reload` - Restart supervisor after a config change
+
+### Supervisor
+
+* `supervisor::setup` - Installs supervisor
+* `supervisor::reload` - Restart supervisor after a config change
 
 ### Symfony
 
@@ -91,6 +94,7 @@ You will need to give your instances permission to access cloud watch, this IAM 
 * `symfony::cache` - Clear the Symfony cache
 * `symfony::composer` - Run composer install in application dir
 * `symfony::cron` - Create cron jobs for the Symfony commands in JSON
+* `symfony::daemon` - Create supervisor daemons configs for the Symfony commands in JSON
 * `symfony::ini` - php.ini settings
 * `symfony::logs` - Link Symfony log files into the shared logs folder
 * `symfony::migrate` - Run doctrine migrations
@@ -114,14 +118,19 @@ The top key should match the application name in Opsworks
 * `parameters` - your Symfony parameters file - If a database is attached in Opsworks then the parameters `database_*`
 will be set automatically.
 * `files` - the name and content of any files you need to create, file names are relative to the project directory, or start with a /
-* `crons` - the settings for cronjobs that you need to run
-  *  `command` - the command and arguments
+* `crons` - the settings for cron jobs that you need to run
+  * `command` - the command and arguments
   * `symfony` - default true - means you are running a symfony command, it will be run in `prod`
   * `minute` - cron format for the time to run at, default `*`
   * `hour` - default `*`
   * `day` - default `*`
   * `month` - default `*`
   * `weekday` - default `*`
+* `daemons` - the settings for daemons that you need to run
+  * `command` - the command and arguments
+  * `symfony` - default true - means you are running a symfony command, it will be run in `prod`
+  * `name` - a name for your daemon to go in the config
+  * `number` - the number of processes to run, default `1`
 * `writable` - array of directorys that should be writable by apache
 * `resque` - settings for resque - this section must exist for resque to be setup for this app. If this is set then parameters `redis_host`, `redis_port` and `resque_queue` will be set in Symfony
   * `workers` - number of worker, default `node['cpu']['total']`
@@ -222,15 +231,15 @@ If built on the 'custom layer' settings:
 
 ### Setup Commands
 
-    go-composer symfony::setup resque::setup logs::config logs::setup metrics::setup
+    go-composer symfony::setup supervisor::setup logs::config logs::setup metrics::setup
 
 ### Configure Commands
 
-    php::configure symfony::ini files::create symfony::parameters symfony::cache resque::config resque::reload symfony::cron
+    php::configure symfony::ini files::create symfony::parameters symfony::cache symfony::deamon resque::config supervisor::reload symfony::cron
 
 ### Deploy Commands
 
-    deploy::php symfony::logs logs::config logs::restart files::create symfony::parameters symfony::permissions symfony::composer symfony::migrate symfony::cache resque::config resque::reload symfony::cron
+    deploy::php symfony::logs logs::config logs::restart files::create symfony::parameters symfony::permissions symfony::composer symfony::migrate symfony::cache symfony::deamon resque::config supervisor::reload symfony::cron
 
 ### Undeploy Commands
 

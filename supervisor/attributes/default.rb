@@ -1,0 +1,1 @@
+default[:supervisor][:packages] = ['supervisor']
