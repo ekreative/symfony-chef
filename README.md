@@ -247,11 +247,11 @@ If built on the 'custom layer' settings:
 
 ### Configure Commands
 
-    php::configure symfony::ini files::create symfony::parameters symfony::cache symfony::deamon resque::config supervisor::reload symfony::cron
+    php::configure symfony::ini files::create symfony::parameters symfony::cache symfony::daemon resque::config supervisor::reload symfony::cron
 
 ### Deploy Commands
 
-    deploy::php symfony::logs logs::config logs::restart files::create symfony::parameters symfony::permissions symfony::composer symfony::migrate symfony::cache symfony::deamon resque::config supervisor::reload symfony::cron
+    deploy::php symfony::logs logs::config logs::restart files::create symfony::parameters symfony::permissions symfony::composer symfony::migrate symfony::cache symfony::daemon resque::config supervisor::reload symfony::cron
 
 ### Undeploy Commands
 
