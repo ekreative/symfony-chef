@@ -179,6 +179,12 @@ Sample:
                     "minute": "1"
                 }
             ],
+            "daemons": [
+                {
+                  "command":"app:daemon-cmmand",
+                  "name":"app-daemon"
+                }
+            ],
             "writable": [
                 "web/uploads"
             ],
@@ -206,6 +212,12 @@ Sample:
             "ini": {
                 "upload_max_filesize": "2M"
             }
+        },
+        "blackfire": {
+            "agent": {
+                "server_id": "your-server-id",
+                "server_token": "your-server-token"
+            }
         }
     }
 
@@ -215,7 +227,7 @@ If built on the 'php app layer' settings:
 
 ### Setup Commands
 
-    go-composer symfony::setup node::setup logs::config logs::setup metrics::setup
+    go-composer symfony::setup node::setup logs::config logs::setup metrics::setup blackfire
 
 ### Configure Commands
 
@@ -231,7 +243,7 @@ If built on the 'custom layer' settings:
 
 ### Setup Commands
 
-    go-composer symfony::setup supervisor::setup logs::config logs::setup metrics::setup
+    go-composer symfony::setup supervisor::setup logs::config logs::setup metrics::setup blackfire
 
 ### Configure Commands
 
