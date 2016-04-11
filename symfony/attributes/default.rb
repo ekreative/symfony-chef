@@ -3,3 +3,4 @@ default[:symfony][:ini][:memorylimit] = '128MB'
 default[:symfony][:ini][:timezone] = 'UTC'
 default[:symfony][:console] = 'app/console'
 default[:symfony][:writable] = ['app/cache']
+default[:symfony][:composer_dev] = false
