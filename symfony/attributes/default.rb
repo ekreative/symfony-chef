@@ -4,3 +4,4 @@ default[:symfony][:ini][:timezone] = 'UTC'
 default[:symfony][:console] = 'app/console'
 default[:symfony][:writable] = ['app/cache']
 default[:symfony][:composer_dev] = true
+default[:symfony][:composer_optimize_autoloader] = true
