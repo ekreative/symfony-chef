@@ -9,7 +9,7 @@ state_file = /var/awslogs/state/agent-state
 file = /var/log/apache2/<%= app_name %>-access.log
 datetime_format = [%d/%b/%Y:%H:%M:%S %z]
 log_group_name = <%= stackname %>_<%= app_name %>_apache_access
-log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_apache_access
+log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_<%= app_name %>_apache_access
 
         <% if deploy[:ssl_support] %>
 
@@ -17,7 +17,7 @@ log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_apache_access
 file = /var/log/apache2/<%= app_name %>-ssl-access.log
 datetime_format = [%d/%b/%Y:%H:%M:%S %z]
 log_group_name = <%= stackname %>_<%= app_name %>_apache_ssl_access
-log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_apache_ssl_access
+log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_<%= app_name %>_apache_ssl_access
 
         <% end %>
 
@@ -25,7 +25,7 @@ log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_apache_ssl_access
 file = /var/log/apache2/<%= app_name %>-error.log
 datetime_format = [%d/%b/%Y:%H:%M:%S %z]
 log_group_name = <%= stackname %>_<%= app_name %>_apache_error
-log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_apache_error
+log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_<%= app_name %>_apache_error
 
     <% end %>
     <% if node[:logs][:symfony] %>
@@ -34,16 +34,25 @@ log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_apache_error
 file = <%= deploy[:deploy_to]%>/shared/log/prod.log
 datetime_format = <%= node[:logs][:symfony_datetime] %>
 log_group_name = <%= stackname %>_<%= app_name %>_symfony_prod
-log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_symfony_prod
+log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_<%= app_name %>_symfony_prod
 
 [<%= app_name %>_dev]
 file = <%= deploy[:deploy_to]%>/shared/log/dev.log
 datetime_format = <%= node[:logs][:symfony_datetime] %>
 log_group_name = <%= stackname %>_<%= app_name %>_symfony_dev
-log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_symfony_dev
+log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_<%= app_name %>_symfony_dev
 
+        <% if node[app_name].present? and node[app_name][:crons].present? %>
+
+[<%= app_name %>_cron]
+file = <%= deploy[:deploy_to]%>/shared/log/cron.log
+datetime_format = <%= node[:logs][:symfony_datetime] %>
+log_group_name = <%= stackname %>_<%= app_name %>_symfony_cron
+log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_<%= app_name %>_symfony_cron
+
+        <% end %>
     <% end %>
-    <% if node[app_name].present? and node[app_name][:resque].present? and system('dpkg-query -W supervisor') %>
+    <% if system('dpkg-query -W supervisor') %>
 
 [<%= app_name %>_supervisord]
 file = /var/log/supervisor/supervisord.log
@@ -51,35 +60,56 @@ datetime_format = %Y-%m-%d %H:%M:%S
 log_group_name = <%= stackname %>_<%= app_name %>_supervisord
 log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_supervisord
 
-        <% for i in 0..((node[app_name][:resque][:workers] || node[:resque][:workers]) - 1) do %>
+        <% if node[app_name].present? and node[app_name][:resque].present? %>
+            <% for i in 0..((node[app_name][:resque][:workers] || node[:resque][:workers]) - 1) do %>
 
 [<%= app_name %>_<%= i %>_worker_stderr]
 file = /var/log/supervisor/<%= app_name %>-<%= i %>.stderr.log
 datetime_format = [%H:%M:%S %Y-%m-%d]
 log_group_name = <%= stackname %>_<%= app_name %>_worker_stderr
-log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_worker_<%= i %>_stderr
+log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_<%= app_name %>_worker_<%= i %>_stderr
 
 [<%= app_name %>_<%= i %>_worker_stdout]
 file = /var/log/supervisor/<%= app_name %>-<%= i %>.stdout.log
 datetime_format = [%H:%M:%S %Y-%m-%d]
 log_group_name = <%= stackname %>_<%= app_name %>_worker_stdout
-log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_worker_<%= i %>_stdout
+log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_<%= app_name %>_worker_<%= i %>_stdout
 
-        <% end %>
-        <% if node[app_name][:resque][:scheduler] %>
+            <% end %>
+            <% if node[app_name][:resque][:scheduler] %>
 
 [<%= app_name %>_<%= i %>_scheduler_stderr]
 file = /var/log/supervisor/<%= app_name %>-scheduler-0.stderr.log
 datetime_format = [%H:%M:%S %Y-%m-%d]
 log_group_name = <%= stackname %>_<%= app_name %>_scheduler_stderr
-log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_scheduler_stderr
+log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_<%= app_name %>_scheduler_stderr
 
 [<%= app_name %>_<%= i %>_scheduler_stdout]
 file = /var/log/supervisor/<%= app_name %>-scheduler-0.stdout.log
 datetime_format = [%H:%M:%S %Y-%m-%d]
 log_group_name = <%= stackname %>_<%= app_name %>_scheduler_stdout
-log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_scheduler_stdout
+log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_<%= app_name %>_scheduler_stdout
 
+            <% end %>
+        <% end %>
+        <% if node[app_name].present? and node[app_name][:daemons].present? %>
+            <% node[app_name][:daemons].each do |daemon| %>
+                <% for i in 0..((daemon[:number] || 1) - 1) do %>
+
+[<%= app_name %>_<%= i %>_<%= daemon[:name] %>_stderr]
+file = /var/log/supervisor/<%= app_name %>-<%= daemon[:name] %>-<%= i %>.stderr.log
+datetime_format = [%H:%M:%S %Y-%m-%d]
+log_group_name = <%= stackname %>_<%= app_name %>_<%= daemon[:name] %>_stderr
+log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_<%= app_name %>_<%= daemon[:name] %>_<%= i %>_stderr
+
+[<%= app_name %>_<%= i %>_<%= daemon[:name] %>_stdout]
+file = /var/log/supervisor/<%= app_name %>-<%= daemon[:name] %>-<%= i %>.stdout.log
+datetime_format = [%H:%M:%S %Y-%m-%d]
+log_group_name = <%= stackname %>_<%= app_name %>_<%= daemon[:name] %>_stdout
+log_stream_name = <%= node[:opsworks][:instance][:hostname] %>_<%= app_name %>_<%= daemon[:name] %>_<%= i %>_stdout
+
+                <% end %>
+            <% end %>
         <% end %>
     <% end %>
 <% end %>
