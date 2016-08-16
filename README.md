@@ -131,6 +131,7 @@ will be set automatically.
   * `symfony` - default true - means you are running a symfony command, it will be run in `prod`
   * `name` - a name for your daemon to go in the config
   * `number` - the number of processes to run, default `1`
+  * `startretries` - the number of times supervisor attemps to restart the process, default `3`
 * `writable` - array of directorys that should be writable by apache
 * `resque` - settings for resque - this section must exist for resque to be setup for this app. If this is set then parameters `redis_host`, `redis_port` and `resque_queue` will be set in Symfony
   * `workers` - number of worker, default `node['cpu']['total']`

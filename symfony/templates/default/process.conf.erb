@@ -5,6 +5,7 @@ numprocs=<%= @number %>
 user=<%= @user %>
 autostart=true
 autorestart=true
+startretries=<%= @startretries %>
 stdout_logfile=/var/log/supervisor/<%= @name %>-%(process_num)s.stdout.log
 stdout_logfile_backups=3
 stderr_logfile=/var/log/supervisor/<%= @name %>-%(process_num)s.stderr.log

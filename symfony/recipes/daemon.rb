@@ -26,7 +26,8 @@ node[:deploy].each do |app_name, deploy|
                         :name => "#{app_name}-#{daemon[:name]}",
                         :command => cmd,
                         :number => daemon[:number] || 1,
-                        :user => user
+                        :user => user,
+                        :startretries => daemon[:startretries] || 3
                     )
                 end
             end
