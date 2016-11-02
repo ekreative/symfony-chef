@@ -111,6 +111,15 @@ You will need to give your instances permission to access cloud watch, this IAM 
   * `{'User-Agent' => 'Amazon Route 53 Health Check Service'}`
   * `{'Remote_Addr' => '127\.0\.0\.1'}`
 
+### Slack
+
+* `slack::notify` - Send a notification to the configured slack hook
+
+#### Attributes
+
+* `[:slack][:hook]` - The slack hook to send to
+* `[:slack][:channel]` - Override the channel setting for the hook
+
 ## Sample JSON
 
 The top key should match the application name in Opsworks
@@ -219,6 +228,9 @@ Sample:
                 "server_id": "your-server-id",
                 "server_token": "your-server-token"
             }
+        },
+        "slack": {
+            "hook": "https://hooks.slack.com/..."
         }
     }
 
@@ -236,7 +248,7 @@ If built on the 'php app layer' settings:
 
 ### Deploy Commands
 
-    symfony::logs logs::config logs::restart files::create symfony::parameters symfony::permissions node::npm node::bower node::gulp symfony::composer symfony::assetic symfony::migrate symfony::cache apache2::restart
+    symfony::logs logs::config logs::restart files::create symfony::parameters symfony::permissions node::npm node::bower node::gulp symfony::composer symfony::assetic symfony::migrate symfony::cache apache2::restart slack::deploy
 
 ## Typical Worker layer
 
@@ -252,7 +264,7 @@ If built on the 'custom layer' settings:
 
 ### Deploy Commands
 
-    deploy::php symfony::logs logs::config logs::restart files::create symfony::parameters symfony::permissions symfony::composer symfony::migrate symfony::cache symfony::daemon resque::config supervisor::reload symfony::cron
+    deploy::php symfony::logs logs::config logs::restart files::create symfony::parameters symfony::permissions symfony::composer symfony::migrate symfony::cache symfony::daemon resque::config supervisor::reload symfony::cron slack::deploy
 
 ### Undeploy Commands
 
