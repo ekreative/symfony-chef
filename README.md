@@ -265,3 +265,23 @@ If built on the 'custom layer' settings:
 ### Setup Commands
 
     thumbor::default
+
+## Testing
+
+So far I have tested a few receipes just using chef solo.
+
+Create a `solo.json` with a run list and other data it requires
+
+    {
+      "run_list": [ "recipe[slack::deploy]" ],
+      "deploy": {
+        "x": {}
+      },
+      "slack": {
+        "hook": "https://hooks.slack.com/..."
+      }
+    }
+    
+run it
+
+    chef-solo -c solo.rb -j solo.json
