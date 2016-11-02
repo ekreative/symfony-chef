@@ -1,7 +1,8 @@
 node[:deploy].each do |app_name, deploy|
     unless node[:slack][:hook].nil?
+        revision = deploy["scm"]["revision"].nil? ? "" : "@#{deploy["scm"]["revision"]}"
         message = {
-            :text => "Deployed #{app_name} on stack #{node["opsworks"]["stack"]["name"]}"
+            :text => "#{node["opsworks"]["activity"]} #{app_name}#{revision} to #{node["opsworks"]["instance"]["hostname"]}@#{node["opsworks"]["stack"]["name"]}"
         }
         unless node[:slack][:channel].nil?
             message[:channel] = node[:slack][:channel]
