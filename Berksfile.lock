@@ -1,6 +1,7 @@
 DEPENDENCIES
   blackfire (~> 2.0.1)
   composer (~> 2.2.1)
+  mysql (= 7.2.0)
   thumbor (~> 1.0.2)
 
 GRAPH
@@ -29,7 +30,9 @@ GRAPH
     dpkg_autostart (>= 0.0.0)
     ubuntu (>= 0.0.0)
     yum-epel (>= 0.0.0)
-  mysql (8.1.1)
+  mysql (7.2.0)
+    smf (>= 0.0.0)
+    yum-mysql-community (>= 0.0.0)
   nginx (1.8.0)
     apt (>= 0.0.0)
     build-essential (>= 0.0.0)
@@ -48,6 +51,7 @@ GRAPH
   python (1.4.6)
     build-essential (>= 0.0.0)
     yum-epel (>= 0.0.0)
+  rbac (1.0.3)
   redisio (2.5.0)
     build-essential (>= 0.0.0)
     ulimit (>= 0.1.2)
@@ -56,6 +60,8 @@ GRAPH
     yum-epel (>= 0.0.0)
   seven_zip (2.0.2)
     windows (>= 1.2.2)
+  smf (2.2.8)
+    rbac (>= 1.0.1)
   thumbor (1.0.2)
     apt (>= 0.0.0)
     monit-ng (>= 0.0.0)
@@ -71,3 +77,5 @@ GRAPH
   yum (4.1.0)
   yum-epel (1.0.2)
     yum (>= 3.6)
+  yum-mysql-community (2.0.1)
+    compat_resource (>= 12.14.7)
