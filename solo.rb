@@ -1,1 +1,1 @@
-cookbook_path Dir.pwd
+cookbook_path [Dir.pwd, "#{Dir.pwd}/cookbooks"]

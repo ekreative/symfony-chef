@@ -295,5 +295,6 @@ Create a `solo.json` with a run list and other data it requires
     }
     
 run it
-
+    
+    berks vendor cookbooks
     chef-solo -c solo.rb -j solo.json

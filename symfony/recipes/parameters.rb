@@ -1,6 +1,5 @@
 node[:deploy].each do |app_name, deploy|
     params = {
-        "database_driver" => "pdo_#{deploy[:database][:adapter]}",
         "database_host" => deploy[:database][:host],
         "database_port" => deploy[:database][:port],
         "database_name" => deploy[:database][:database],
@@ -9,7 +8,10 @@ node[:deploy].each do |app_name, deploy|
         "memcached_host" => deploy[:memcached][:host],
         "memcached_port" => deploy[:memcached][:port]
     }
-    if node[app_name].present? and node[app_name][:resque].present?
+    if !deploy[:database][:adapter].nil?
+        params["database_driver"] = "pdo_#{deploy[:database][:adapter]}"
+    end
+    if !node[app_name].nil? and !node[app_name][:resque].nil?
         host = node[:resque][:host]
         port = node[:resque][:port]
         if node[app_name][:resque][:redis].present?
@@ -30,8 +32,7 @@ node[:deploy].each do |app_name, deploy|
         group deploy[:group]
         variables(
             :params => {
-                :parameters => params
-                    .merge((node[app_name] and node[app_name][:parameters]) || {})
+                :parameters => params.merge((node[app_name] and node[app_name][:parameters]) || {}).reject { |k,v| v.nil? }
             }.to_json
         )
         only_if do File.directory?("#{deploy[:deploy_to]}/current/app/config") end
