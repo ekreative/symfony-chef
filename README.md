@@ -105,8 +105,10 @@ You will need to give your instances permission to access cloud watch, this IAM 
 #### Attributes
 
 * `[:symfony][:ini]` - PHP ini settings to add
-* `[:symfony][:console]` - The location of the symfony console, default `'app/console'`
-* `[:symfony][:writable]` - array of folders that should be writable by the web server, default `['app/cache']`
+* `[:symfony][:console]` - The location of the symfony console - *change for Symfony 3+*, default `'app/console'`
+* `[:symfony][:logs]` - The location of the symfony logs dir - *change for Symfony 3+*, default `'app/logs'`
+* `[:symfony][:cache]` - The location of the symfony cache dir - *change for Symfony 3+*, default `'app/cache'`
+* `[:symfony][:writable]` - array of folders that should be writable by the web server - *change for Symfony 3+*, default `['app/cache']`
   * `{'User-Agent' => 'ELB-HealthChecker'}`
   * `{'User-Agent' => 'Amazon Route 53 Health Check Service'}`
   * `{'Remote_Addr' => '127\.0\.0\.1'}`

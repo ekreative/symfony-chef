@@ -1,9 +1,9 @@
 node[:deploy].each do |app_name, deploy|
-    directory "#{deploy[:deploy_to]}/current/app/cache" do
+    directory "#{deploy[:deploy_to]}/current/#{node[:symfony][:cache]}" do
         action :delete
         recursive true
     end
-    directory "#{deploy[:deploy_to]}/current/app/cache" do
+    directory "#{deploy[:deploy_to]}/current/#{node[:symfony][:cache]}" do
         group deploy[:group]
         if platform?("ubuntu")
             user "www-data"

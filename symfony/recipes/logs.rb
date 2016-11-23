@@ -1,9 +1,9 @@
 node[:deploy].each do |app_name, deploy|
-    directory "#{deploy[:deploy_to]}/current/app/logs" do
+    directory "#{deploy[:deploy_to]}/current/#{node[:symfony][:logs]}" do
         action :delete
         recursive true
     end
-    link "#{deploy[:deploy_to]}/current/app/logs" do
+    link "#{deploy[:deploy_to]}/current/#{node[:symfony][:logs]}" do
         group deploy[:group]
         if platform?("ubuntu")
             owner "www-data"
