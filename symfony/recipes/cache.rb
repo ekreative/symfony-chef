@@ -12,7 +12,7 @@ node[:deploy].each do |app_name, deploy|
         end
         recursive true
     end
-    execute "cache" do
+    execute "cache_clear" do
         group deploy[:group]
         if platform?("ubuntu")
             user "www-data"
@@ -21,7 +21,19 @@ node[:deploy].each do |app_name, deploy|
         end
 
         cwd "#{deploy[:deploy_to]}/current"
-        command "#{deploy[:deploy_to]}/current/#{node[:symfony][:console]} cache:clear --env=prod"
+        command "#{deploy[:deploy_to]}/current/#{node[:symfony][:console]} cache:clear --no-warmup --env=prod"
+        only_if do File.exists?("#{deploy[:deploy_to]}/current/#{node[:symfony][:console]}") end
+    end
+    execute "cache_warmup" do
+        group deploy[:group]
+        if platform?("ubuntu")
+            user "www-data"
+        elsif platform?("amazon")
+            user "apache"
+        end
+
+        cwd "#{deploy[:deploy_to]}/current"
+        command "#{deploy[:deploy_to]}/current/#{node[:symfony][:console]} cache:warmup --env=prod"
         only_if do File.exists?("#{deploy[:deploy_to]}/current/#{node[:symfony][:console]}") end
     end
 end
