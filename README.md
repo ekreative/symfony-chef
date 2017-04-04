@@ -74,10 +74,15 @@ You will need to give your instances permission to access cloud watch, this IAM 
 
 ### Node
 
-* `node:bower` - Run bower install (bower should be installed using the package.json of the project)
-* `node:gulp` - Runs gulp in the application dir (default task)
-* `node:npm` - Runs npm install in the application dir
+* `node::bower` - Run bower install (bower should be installed using the package.json of the project)
+* `node::gulp` - Runs gulp in the application dir (default task)
+* `node::npm` - Runs npm install in the application dir
 * `node::setup` - Install nodejs/npm (With "legacy" support)
+
+### Yarn
+
+* `yarn::yarn` - Runs yarn install in the application dir
+* `yarn::setup` - Install yarn
 
 ### Resque
 
