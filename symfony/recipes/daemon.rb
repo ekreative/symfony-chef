@@ -16,7 +16,7 @@ node[:deploy].each do |app_name, deploy|
                 if daemon[:symfony].present? and !daemon[:symfony]
                     cmd = "#{daemon[:command]}"
                 else
-                    cmd = "#{deploy[:deploy_to]}/current/#{node[:symfony][:console]} #{daemon[:command]} --env=prod"
+                    cmd = "#{deploy[:deploy_to]}/current/#{node[:symfony][:console]} --env=prod #{daemon[:command]}"
                 end
 
                 template "/etc/supervisor/conf.d/#{app_name}-#{daemon[:name]}.conf" do
