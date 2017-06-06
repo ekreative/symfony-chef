@@ -1,3 +1,3 @@
-execute "supervisorctl reload" do
-  user "root"
+execute 'supervisorctl reload' do
+  user 'root'
 end

@@ -1,1 +1,1 @@
-name "resque"
+name 'resque'

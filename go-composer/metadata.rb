@@ -1,3 +1,3 @@
-name "go-composer"
+name 'go-composer'
 
-depends "composer"
+depends 'composer'

@@ -1,1 +1,1 @@
-include_recipe "composer"
+include_recipe 'composer'

@@ -1,1 +1,1 @@
-name "apache2"
+name 'apache2'

@@ -1,4 +1,4 @@
-name "symfony"
+name 'symfony'
 
-depends "composer"
-depends "resque"
+depends 'composer'
+depends 'resque'

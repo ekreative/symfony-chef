@@ -1,1 +1,1 @@
-name "yarn"
+name 'yarn'
