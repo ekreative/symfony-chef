@@ -1,5 +1,10 @@
 # Chef recipes for Symfony
 
+Chef recipes for running Symfony apps on Opsworks
+
+[![Version](https://img.shields.io/github/release/ekreative/symfony-chef.svg)](https://github.com/ekreative/symfony-chef)
+[![GitHub license](https://img.shields.io/github/license/ekreative/symfony-chef.svg)](https://github.com/ekreative/symfony-chef)
+
 ## Recipes
 
 ### Apache2
