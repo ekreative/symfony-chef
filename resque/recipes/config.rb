@@ -4,7 +4,7 @@ node[:deploy].each do |app_name, deploy|
     user = 'www-data'
   elsif platform?('amazon')
     user = 'apache'
-    end
+  end
 
   host = node[:resque][:host]
   port = node[:resque][:port]

@@ -6,12 +6,13 @@ node[:deploy].each do |app_name, deploy|
   }
   message[:channel] = node[:slack][:channel] unless node[:slack][:channel].nil?
 
+  hdrs = {
+    'content-type' => 'application/json'
+  }
   http_request 'hook' do
     action :post
     url node[:slack][:hook]
-    headers ({
-      'content-type' => 'application/json'
-    })
+    headers hdrs
     message (message.to_json)
     retries 0
     ignore_failure true
