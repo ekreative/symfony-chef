@@ -7,9 +7,7 @@ node[:deploy].each do |app_name, deploy|
           user "apache"
       end
 
-      if app_name == "browni"
-          cwd "#{deploy[:deploy_to]}/current"
-          command "#{deploy[:deploy_to]}/current/app/console doctrine:schema:update --dump-sql --force"
-      end
+      cwd "#{deploy[:deploy_to]}/current"
+      command "#{deploy[:deploy_to]}/current/app/console doctrine:schema:update --dump-sql --force"
   end
 end
