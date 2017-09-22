@@ -1,3 +1,4 @@
 solo.json
 /cookbooks
 /vendor
+/local-mode-cache

@@ -1,0 +1,34 @@
+[global_tags]
+stack = "<%= node[:opsworks][:stack][:name].gsub(' ','_') %>"
+instance = "<%= node[:opsworks][:instance][:hostname] %>"
+layer = "<%= node[:opsworks][:instance][:layers].join(',') %>"
+
+[agent]
+  hostname = "<%= node[:opsworks][:stack][:name].gsub(' ','_') %>-<%= node[:opsworks][:instance][:hostname] %>"
+
+[[outputs.influxdb]]
+  urls = ["<%= node[:telegraf][:url] %>"]
+  database = "<%= node[:telegraf][:database] %>"
+  retention_policy = "<%= node[:telegraf][:retention_policy] %>"
+  write_consistency = "<%= node[:telegraf][:write_consistency] %>"
+  timeout = "<%= node[:telegraf][:timeout] %>"
+  
+[[inputs.system]]
+  # show up as a host in chronograf
+  
+[[inputs.cpu]]
+
+[[inputs.disk]]
+
+[[inputs.diskio]]
+
+[[inputs.mem]]
+
+[[inputs.processes]]
+
+[[inputs.swap]]
+
+<% if system('dpkg-query -W apache2') %>
+[[inputs.apache]]
+  urls = ["<%= node[:telegraf][:apache][:url] %>"]
+<% end %>

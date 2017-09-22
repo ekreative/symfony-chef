@@ -133,6 +133,15 @@ You will need to give your instances permission to access cloud watch, this IAM 
 * `[:slack][:hook]` - The slack hook to send to
 * `[:slack][:channel]` - Override the channel setting for the hook
 
+### Telegraf
+
+* `telegraf::setup` - Install telegraf
+* `telegraf::config` - Configure telegraf
+
+#### Attributes
+
+* `[:telegraf][:url]` - The influxdb url to send metrics
+
 ## Sample JSON
 
 The top key should match the application name in Opsworks
@@ -244,6 +253,9 @@ Sample:
         },
         "slack": {
             "hook": "https://hooks.slack.com/..."
+        },
+        "telegraf": {
+            "url": "udp://influxdb:8089"
         }
     }
 
@@ -253,15 +265,15 @@ If built on the 'php app layer' settings:
 
 ### Setup Commands
 
-    go-composer symfony::setup node::setup logs::config logs::setup metrics::setup blackfire
+    go-composer symfony::setup node::setup logs::config logs::setup telegraf::setup metrics::setup blackfire
 
 ### Configure Commands
 
-    symfony::ini files::create symfony::parameters symfony::cache apache2::restart
+    telegraf::config symfony::ini files::create symfony::parameters symfony::cache apache2::restart
 
 ### Deploy Commands
 
-    symfony::logs logs::config logs::restart files::create symfony::parameters symfony::permissions node::npm node::bower node::gulp symfony::composer symfony::assetic symfony::migrate symfony::cache apache2::restart slack::deploy
+    symfony::logs logs::config logs::restart telegraf::config files::create symfony::parameters symfony::permissions node::npm node::bower node::gulp symfony::composer symfony::assetic symfony::migrate symfony::cache apache2::restart slack::deploy
 
 ## Typical Worker layer
 
@@ -269,15 +281,15 @@ If built on the 'custom layer' settings:
 
 ### Setup Commands
 
-    go-composer symfony::setup supervisor::setup logs::config logs::setup metrics::setup blackfire
+    go-composer symfony::setup supervisor::setup logs::config logs::setup telegraf::setup metrics::setup blackfire
 
 ### Configure Commands
 
-    php::configure symfony::ini files::create symfony::parameters symfony::cache symfony::daemon resque::config supervisor::reload symfony::cron
+    php::configure telegraf::config symfony::ini files::create symfony::parameters symfony::cache symfony::daemon resque::config supervisor::reload symfony::cron
 
 ### Deploy Commands
 
-    deploy::php symfony::logs logs::config logs::restart files::create symfony::parameters symfony::permissions symfony::composer symfony::migrate symfony::cache symfony::daemon resque::config supervisor::reload symfony::cron slack::deploy
+    deploy::php symfony::logs logs::config logs::restart telegraf::config files::create symfony::parameters symfony::permissions symfony::composer symfony::migrate symfony::cache symfony::daemon resque::config supervisor::reload symfony::cron slack::deploy
 
 ### Undeploy Commands
 
