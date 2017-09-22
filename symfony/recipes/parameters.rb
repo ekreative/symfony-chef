@@ -32,7 +32,7 @@ node[:deploy].each do |app_name, deploy|
     group deploy[:group]
     variables(
       params: {
-        parameters: params.merge((node[app_name] && node[app_name][:parameters]) || {}).reject { |_k, v| v.nil? }
+        parameters: params.reject { |_k, v| v.nil? }.merge((node[app_name] && node[app_name][:parameters]) || {})
       }.to_json
     )
     only_if { File.directory?("#{deploy[:deploy_to]}/current/app/config") }
