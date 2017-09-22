@@ -1,6 +1,10 @@
 [global_tags]
 stack = "<%= node[:opsworks][:stack][:name].gsub(' ','_') %>"
 instance = "<%= node[:opsworks][:instance][:hostname] %>"
+layer = "<%= node[:opsworks][:instance][:layers].join(',') %>"
+
+[agent]
+  hostname = <%= node[:opsworks][:stack][:name].gsub(' ','_') %>-<%= node[:opsworks][:instance][:hostname] %>
 
 [[outputs.influxdb]]
   urls = ["<%= node[:telegraf][:url] %>"]
