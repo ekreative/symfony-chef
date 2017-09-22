@@ -4,3 +4,7 @@ template '/etc/telegraf/telegraf.conf' do
   group 'root'
   mode 0o644
 end
+
+service 'telegraf' do
+  action :restart
+end
