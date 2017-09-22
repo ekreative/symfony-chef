@@ -11,6 +11,18 @@ instance = "<%= node[:opsworks][:instance][:hostname] %>"
   
 [[inputs.system]]
   # show up as a host in chronograf
+  
+[[inputs.cpu]]
+
+[[inputs.disk]]
+
+[[inputs.diskio]]
+
+[[inputs.mem]]
+
+[[inputs.processes]]
+
+[[inputs.swap]]
 
 <% if system('dpkg-query -W apache2') %>
 [[inputs.apache]]
